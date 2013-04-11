@@ -34,7 +34,13 @@ function template($tpl, $params = array(), $layout = 'default') {
 }
 
 function session($name, $value = null) {
+    global $app;
 
+    if (is_null($value)) {
+        return $app->request->session->get($name);
+    } else {
+        return $app->request->session->set($name, $value);
+    }
 }
 
 function cookie($name, $value = null, $expires = 3600, $path='/', $domain='', $secure=false, $httponly=false) {

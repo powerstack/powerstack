@@ -28,6 +28,7 @@ class Request {
     public $query_string;
     public $base_uri;
     public $cookie;
+    public $session;
 
     function __construct() {
         $this->request_method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -39,6 +40,7 @@ class Request {
         $this->request_uri = $this->get_requesturi();
         $this->base_uri = $_SERVER['SERVER_NAME'];
         $this->cookie = new Cookie();
+        $this->session = new SessionFactory();
     }
 
     protected function get_requesturi() {

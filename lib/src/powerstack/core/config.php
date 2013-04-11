@@ -122,6 +122,27 @@ class Config {
             );
         }
 
+        // Process session configuration
+        if (!isset($xml->session)) {
+            $this->session = (object) array(
+                'savepath' => '/tmp/powerstack-sessions',
+                'engine' => 'simple',
+            );
+        } else {
+            if (!isset($xml->session->engine)) {
+                throw new \Exception("Session engine must be set. Default is simple");
+            }
+
+            if (!isset($xml->session->svaepath)) {
+                throw new \Exception("Session savepath must be set. Default is /tmp/powerstack-sessions");
+            }
+
+            $this->session = (object) array(
+                'savepath' => $xml->session->savepath,
+                'engine' => $xml->session->engine,
+            );
+        }
+
         // Processing any plugin configuration
         if (isset($xml->plugins) && !empty($xml->plugins)) {
             $plugins = array();

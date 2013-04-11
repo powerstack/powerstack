@@ -18,6 +18,10 @@
             </layout>
         </layouts>
     </template>
+    <!--<session>
+        <engine>simple</engine>
+        <savepath>/tmp/powerstack-session</savepath>
+    </session>-->
     <!--<plugins>
     </plugins>-->
     <settings>
