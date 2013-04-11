@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <application>
+        <name>Powerstack</name>
+        <version>1.0</version>
+        <author>
+            <name>Author name</name>
+            <email>Author email</email>
+        </author>
+    </application>
+    <template>
+        <engine>simple</engine>
+        <viewsdir>app/views</viewsdir>
+        <layouts>
+            <layout>
+                <name>default</name>
+                <file>app/views/layouts/default.tpl</file>
+            </layout>
+        </layouts>
+    </template>
+    <!--<plugins>
+    </plugins>-->
+    <settings>
+        <!--<cookie>
+            <expires>3600</expires>
+            <domain>.localhost</domain>
+        </cookie>-->
+    </settings>
+</config>
