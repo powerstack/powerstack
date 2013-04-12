@@ -19,9 +19,28 @@
 namespace Powerstack\Core;
 
 class Application {
+    /**
+    * @acess public
+    * @var Powerstack\Core\Config
+    */
     public $config;
+
+    /**
+    * @access public
+    * @var Powerstack\Core\Request
+    */
     public $request;
+
+    /**
+    * @access public
+    * @var Powerstack\Core\Params
+    */
     public $params;
+
+    /**
+    * @access private
+    * @var array
+    */
     private $routes = array(
         'get' => array(),
         'post' => array(),
@@ -29,12 +48,30 @@ class Application {
         'delete' => array(),
     );
 
+    /**
+    * __construct
+    * Create a new instance of Powerstack\Core\Application
+    *
+    * @access public
+    * @param Powerstack\Core\Config $config Powerstack config object
+    */
     function __construct(Config $config) {
         $this->config = $config;
         $this->request = new Request();
         $this->params = new Params();
     }
 
+    /**
+    * Any
+    * Create a route handler that handles more than one HTTP request type
+    *
+    * @access public
+    * @param array      $methods     An array of HTTP request methods. (Methods are get, post, put, delete)
+    * @param string     $uri         The route. ('/' for index page)
+    * @param callback   $function    The function that is executed when this route is used.
+    * @throws Exception
+    * @return void
+    */
     function any($methods, $uri, $function) {
         if (!is_array($methods)) {
             throw new \Exception("The any function requires an array for methods not a " . gettype($methods) . ".");
@@ -59,6 +96,16 @@ class Application {
         }
     }
 
+    /**
+    * Get
+    * Create a route handler for HTTP GET request
+    *
+    * @access public
+    * @param string     $uri        The route. ('/' for index page)
+    * @param callback   $function   The function that is executed when this route is used.
+    * @throws Exception
+    * @return void
+    */
     function get($uri, $function) {
         if (!is_string($uri)) {
             throw new \Exception("The get function requires an string for the uri not a " . gettype($uri) . ".");
@@ -71,6 +118,16 @@ class Application {
         $this->routes['get'][$uri] = $function;
     }
 
+    /**
+    * Post
+    * Create a route handler for HTTP POST request
+    *
+    * @access public
+    * @param string     $uri        The route. ('/' for index page)
+    * @param callback   $function   The function that is executed when this route is used.
+    * @throws Exception
+    * @return void
+    */
     function post($uri, $function) {
         if (!is_string($uri)) {
             throw new \Exception("The post function requires an string for the uri not a " . gettype($uri) . ".");
@@ -83,6 +140,16 @@ class Application {
         $this->routes['post'][$uri] = $function;
     }
 
+    /**
+    * Put
+    * Create a route handler for HTTP PUT request
+    *
+    * @access public
+    * @param string     $uri        The route. ('/' for index page)
+    * @param callback   $function   The function that is executed when this route is used.
+    * @throws Exception
+    * @return void
+    */
     function put($uri, $function) {
         if (!is_string($uri)) {
             throw new \Exception("The put function requires an string for the uri not a " . gettype($uri) . ".");
@@ -95,6 +162,16 @@ class Application {
         $this->routes['put'][$uri] = $function;
     }
 
+    /**
+    * Delete
+    * Create a route handler for HTTP Delete request
+    *
+    * @access public
+    * @param string     $uri        The route. ('/' for index page)
+    * @param callback   $function   The function that is executed when this route is used.
+    * @throws Exception
+    * @return void
+    */
     function delete($uri, $function) {
         if (!is_string($uri)) {
             throw new \Exception("The delete function requires an string for the uri not a " . gettype($uri) . ".");
@@ -107,6 +184,14 @@ class Application {
         $this->routes['delete'][$uri] = $function;
     }
 
+    /**
+    * Run
+    * This is the main function that runs the routes.
+    *
+    * @access public
+    * @throws Exception
+    * @return void
+    */
     function run() {
         if (!empty($this->routes[$this->request->request_method])) {
             foreach (array_keys($this->routes[$this->request->request_method]) as $uri) {

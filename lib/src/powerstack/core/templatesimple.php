@@ -19,15 +19,43 @@
 namespace Powerstack\Core;
 
 class TemplateSimple {
+    /**
+    * @access private
+    * @var string
+    */
     private $viewsdir;
+
+    /**
+    * @access private
+    * @var stdclass
+    */
     private $conf;
 
+    /**
+    * Init
+    * Initialize template engine
+    *
+    * @return bool true
+    */
     function init() {
         $this->conf = config('template');
         $this->viewsdir = rtrim($this->conf->viewsdir, '/') . '/';
         return true;
     }
 
+    /**
+    * Render
+    * Render a template
+    *
+    * Hook before_template_render, function takes the $params as an argument for
+    * changing values on the fly, function must return the $params array.
+    *
+    * @access public
+    * @param string $tpl    Template to render
+    * @param array  $params A key => value array of template replacement vars. (optional, default empty array)
+    * @param string $layout Layout to use. (optional, default is default layout)
+    * @return string template
+    */
     function render($tpl, $params=array(), $layout='default') {
         global $hooks;
 

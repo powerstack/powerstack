@@ -20,9 +20,24 @@ namespace Powerstack\Core;
 use Powerstack\Plugins\Session;
 
 class SessionFactory {
+    /**
+    * @access private
+    * @var Session object
+    */
     private $session;
+
+    /**
+    * @access private
+    * @var stdclass
+    */
     private $conf;
 
+    /**
+    * __construct
+    * Create a new Powerstack\Core\SessionFactory object
+    *
+    * @thorws Exception
+    */
     function __construct() {
         $this->conf = config('session');
 
@@ -39,18 +54,50 @@ class SessionFactory {
         }
     }
 
+    /**
+    * Init
+    * Initalize a session class
+    *
+    * @access public
+    * @return bool true on success, false otherwise
+    */
     function init() {
         return $this->session->init();
     }
 
+    /**
+    * Set
+    * Set a session
+    *
+    * @acccess public
+    * @param string $name   Name of session
+    * @param mixed  $value  Value of session
+    * @return bool true
+    */
     function set($name, $value) {
         return $this->session->set($name, $value);
     }
 
+    /**
+    * Get
+    * Get a session value
+    *
+    * @access public
+    * @param string $name   Name of session to get
+    * @return mixed value of session if it exists, false otherwise
+    */
     function get($name) {
         return $this->session->get($name);
     }
 
+    /**
+    * Delete
+    * Delete a session
+    *
+    * @access public
+    * @param string $name   Name of session to delete
+    * @return bool true
+    */
     function delete($name) {
         return $this->session->delete($name);
     }

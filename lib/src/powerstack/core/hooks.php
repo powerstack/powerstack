@@ -19,8 +19,21 @@
 namespace Powerstack\Core;
 
 class Hooks {
+    /**
+    * @access private
+    * @var array
+    */
     private $hooks;
 
+    /**
+    * Register
+    * Register a hook to be executed
+    *
+    * @acess public
+    * @param string     $name       Name of hook to register
+    * @param callback   $functon    Function to be executed when hook is run
+    * @return bool true
+    */
     function register($name, $function) {
         if (!isset($this->hooks[$name])) {
             $this->hooks[$name] = array();
@@ -30,6 +43,14 @@ class Hooks {
         return true;
     }
 
+    /**
+    * Exists
+    * Check if a hook exists
+    *
+    * @access public
+    * @param string $name   Name of hook to check
+    * @return bool true if exists, false if it doesn't exist
+    */
     function exists($name) {
         if (isset($this->hooks[$name])) {
             return true;
@@ -38,6 +59,14 @@ class Hooks {
         return false;
     }
 
+    /**
+    * Get
+    * Get all the functions that have been registered for a hook
+    *
+    * @access public
+    * @param string $name   Name of hook to get functions for
+    * @return array empty array if no functions found, array of function if there are functions
+    */
     function get($name) {
         if ($this->exists($name)) {
             return $this->hooks[$name];

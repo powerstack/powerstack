@@ -20,8 +20,16 @@ namespace Powerstack\Core;
 use Powerstack\Plugins\Template;
 
 class TemplateFactory {
+    /**
+    * @access private
+    * @var Template class
+    */
     private $template;
 
+    /**
+    * __construct
+    * Create a new Powerstack\Core\TemplateFactory object
+    */
     function __construct() {
         $conf = config('template');
         $engine = $conf->engine;
@@ -39,10 +47,27 @@ class TemplateFactory {
         }
     }
 
+    /**
+    * Init
+    * Initalize the template class
+    *
+    * @access public
+    * @return bool true on success, false otherwise
+    */
     function init() {
         return $this->template->init();
     }
 
+    /**
+    * Render
+    * Render a template
+    *
+    * @access public
+    * @param string $tpl    Template to render
+    * @param array  $params A key => value array of template replacement vars. (optional, default empty array)
+    * @param string $layout Layout to use. (optional, default is default layout)
+    * @return string template
+    */
     function render($template, $params=array(), $layout='default') {
         return $this->template->render($template, $params, $layout);
     }

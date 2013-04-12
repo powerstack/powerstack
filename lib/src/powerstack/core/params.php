@@ -19,10 +19,21 @@
 namespace Powerstack\Core;
 
 class Params {
+    /**
+    * __construct
+    * Create a new Powerstack\Core\Params object
+    */
     function __construct() {
         $this->init();
     }
 
+    /**
+    * __get
+    * Get a class var value
+    *
+    * @param string $name   Name of class var to get
+    * @return mixed class var value
+    */
     function __get($name) {
         if (isset($this->{$name})) {
             return $this->{$name};
@@ -31,6 +42,15 @@ class Params {
         return null;
     }
 
+    /**
+    * Parse Uri
+    * Parse a requested uri for any placeholder values and add them to the class vars
+    *
+    * @access public
+    * @param string $routeuri       The route uri
+    * @param string $requesturi     The request uri
+    * @return void
+    */
     function parse_uri($routeuri, $requesturi) {
         preg_match_all('#:([^/]+|.+)#', $routeuri, $names);
         $reguri = preg_replace('#:([^/]+|.+)#', '(.+)', $routeuri);
@@ -43,6 +63,13 @@ class Params {
         }
     }
 
+    /**
+    * Init
+    * Initalize the object and load anything for $_GET & $_POST into the class vars
+    *
+    * @access protected
+    * @return void
+    */
     protected function init() {
         $params = array_merge($_GET, $_POST);
 

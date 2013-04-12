@@ -19,17 +19,70 @@
 namespace Powerstack\Core;
 
 class Request {
+    /**
+    * @access public
+    * @var string
+    */
     public $request_method;
+
+    /**
+    * @access public
+    * @var string
+    */
     public $request_uri;
+
+    /**
+    * @access public
+    * @var bool
+    */
     public $https;
+
+    /**
+    * @access public
+    * @var string
+    */
     public $remote_address;
+
+    /**
+    * @access public
+    * @var string
+    */
     public $http_referer;
+
+    /**
+    * @access public
+    * @var string
+    */
     public $user_agent;
+
+    /**
+    * @access public
+    * @var string
+    */
     public $query_string;
+
+    /**
+    * @access public
+    * @var string
+    */
     public $base_uri;
+
+    /**
+    * @access public
+    * @var Powerstack\Core\Cookie
+    */
     public $cookie;
+
+    /**
+    * @access public
+    * @var Powerstack\Core\SessionFactory
+    */
     public $session;
 
+    /**
+    * __construct
+    * Create a new Powerstack\Core\Request object
+    */
     function __construct() {
         $this->request_method = strtolower($_SERVER['REQUEST_METHOD']);
         $this->query_string = $_SERVER['QUERY_STRING'];
@@ -43,6 +96,13 @@ class Request {
         $this->session = new SessionFactory();
     }
 
+    /**
+    * Get Request Uri
+    * Get the requet uri either for $_SERVER['REQUEST_URI'] or $_GET['q']
+    *
+    * @access protected
+    * @return string the request uri
+    */
     protected function get_requesturi() {
         $uri = empty($_GET['q']) ? $_SERVER['REQUEST_URI'] : $_GET['q'];
 

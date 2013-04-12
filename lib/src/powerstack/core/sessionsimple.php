@@ -19,12 +19,28 @@
 namespace Powerstack\Core;
 
 class SessionSimple {
+    /**
+    * Init
+    * Initalize the session storage
+    *
+    * @access public
+    * @return bool true on success, false otherwise
+    */
     function init() {
         $conf = config('session');
         $savepath = rtrim($conf->savepath, '/');
         return ini_set('session.save_path', $savepath);
     }
 
+    /**
+    * Set
+    * Set a session
+    *
+    * @access public
+    * @param string $name   Name of session
+    * @param mixed  $value  Value of session
+    * @return bool true
+    */
     function set($name, $value) {
         @session_start();
         $_SESSION[$name] = $value;
@@ -32,6 +48,14 @@ class SessionSimple {
         return true;
     }
 
+    /**
+    * Get
+    * Get a session
+    *
+    * @access public
+    * @param string $name Name of session to get
+    * @return mixed session value or false
+    */
     function get($name) {
         @session_start();
         $sess = (isset($_SESSION[$name])) ? $_SESSION[$name] : false;
@@ -39,6 +63,14 @@ class SessionSimple {
         return $sess;
     }
 
+    /**
+    * Delete
+    * Delete a session
+    *
+    * @access public
+    * @param string $name   Name of session to delete
+    * @return bool true
+    */
     function delete($name) {
         @session_start();
         unset($_SESSION[$name]);

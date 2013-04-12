@@ -19,13 +19,46 @@
 namespace Powerstack\Core;
 
 class Cookie {
+    /**
+    * @access private
+    * @var string
+    */
     private $cookie_name;
+
+    /**
+    * @access private
+    * @var int
+    */
     private $expire;
+
+    /**
+    * @access private
+    * @var string
+    */
     private $path;
+
+    /**
+    * @access private
+    * @var string
+    */
     private $domain;
+
+    /**
+    * @access private
+    * @var bool
+    */
     private $secure;
+
+    /**
+    * @access private
+    * @var bool
+    */
     private $httponly;
 
+    /**
+    * __construct
+    * Create a new Powerstack\Core\Cookie object
+    */
     function __construct() {
         $defaults = array(
             'cookie_name' => "powerstack",
@@ -47,6 +80,14 @@ class Cookie {
         }
     }
 
+    /**
+    * Get
+    * Get the value of a cookie
+    *
+    * @access public
+    * @param string $name   Name of cookie to get
+    * @return mixed null if cookie doesn't exist or the value if it does exist
+    */
     function get($name) {
         $cookie = json_decode($_COOKIE[$this->cookie_name]);
 
@@ -57,6 +98,21 @@ class Cookie {
         return null;
     }
 
+    /**
+    * Set
+    * Set a cookie
+    *
+    * @access public
+    * @link http://php.net/set_cookie
+    * @param string $name       Name of cookie
+    * @param string $value      Value of cookie
+    * @param int    $expire     The time the cookie expires. (optional, default is an hour from creation)
+    * @param string $path       The path on the server in which the cookie will be available on.  (optional, default is /)
+    * @param string $domian     The domain that the cookie is available to. (optional, default is '')
+    * @param bool   $secure     Indicates that the cookie should only be transmitted over a secure HTTPS connection from the client. (optional, default is false)
+    * @param bool   $httponly   When TRUE the cookie will be made accessible only through the HTTP protocol. (optional, default is false)
+    * @return bool true or false based on success
+    */
     function set($name, $value, $expire=3600, $path='/', $domain='', $secure=false, $httponly=false) {
         if (isset($_COOKIE[$this->cookie_name])) {
             $cookie = json_decode($_COOKIE[$this->cookie_name]);

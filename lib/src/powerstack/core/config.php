@@ -19,8 +19,20 @@
 namespace Powerstack\Core;
 
 class Config {
+    /**
+    * @access protected
+    * @var stdclass
+    */
     protected $config;
 
+    /**
+    * __construct
+    * Create a new Powerstack\Core\Config object
+    *
+    * @access public
+    * @param string $conf_file  Path to config xml file
+    * @throws Exception
+    */
     function __construct($conf_file) {
         if (!is_string($conf_file)) {
             throw new \Exception("Powerstack\Core\Config::__construct() take a string a parameter not a " . gettype($conf_file) . ".");
@@ -33,6 +45,13 @@ class Config {
         $this->load_config($conf_file);
     }
 
+    /**
+    * __get
+    * Get a class variable
+    *
+    * @param string $name   Name of class var to get
+    * @return mixed null if class var doesn't exist or the value of class var if it does exist
+    */
     function __get($name) {
         if (isset($name)) {
             return $this->{$name};
@@ -41,10 +60,27 @@ class Config {
         return null;
     }
 
+    /**
+    * __set
+    * Set a class variable
+    *
+    * @param string $name   Name of class var to set
+    * @param mixed  $value  Value to set class var to
+    * @return void
+    */
     function __set($name, $value) {
         $this->{$name} = $value;
     }
 
+    /**
+    * Load Config
+    * Load the config file into class variables
+    *
+    * @access protected
+    * @param string $conf_file  Path to config xml file
+    * @throws Exception
+    * @return void
+    */
     protected function load_config($conf_file) {
         $xml = simplexml_load_file($conf_file);
 
@@ -168,7 +204,17 @@ class Config {
         }
     }
 
-    private function get_misc_settings($xml, $settings = null, $parentname = null) {
+    /**
+    * Get Misc Settings
+    * Get the misc settings form the config file
+    *
+    * @access protected
+    * @param SimpleXML Object   $xml    The settings SimpleXML object
+    * @param mixed  $settings   The current value of the settings object. (optional)
+    * @param mixed  $parentname The name of the parent object
+    * @return stdclass settings
+    */
+    protected function get_misc_settings($xml, $settings = null, $parentname = null) {
         if (is_null($settings)) {
             $settings  = new \stdClass();
         }
