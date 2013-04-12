@@ -17,7 +17,7 @@
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
 namespace Powerstack\Core;
-use Powerstack\Plugins;
+use Powerstack\Plugins\Template;
 
 class TemplateFactory {
     private $template;

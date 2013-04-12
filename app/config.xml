@@ -23,6 +23,17 @@
         <savepath>/tmp/powerstack-session</savepath>
     </session>-->
     <!--<plugins>
+        <memcached>
+            <servers>127.0.0.1:11211</servers>
+        </memcached>
+        <database>
+            <driver>(pgsql | mysql | sqlite)</driver>
+            <host>localhost</host>
+            <name>Database name</name>
+            <user>Database user</user>
+            <pass>Database passward</pass>
+            <port>Database port</port>
+        </database>
     </plugins>-->
     <settings>
         <!--<cookie>

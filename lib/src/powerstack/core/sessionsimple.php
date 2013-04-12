@@ -36,6 +36,7 @@ class SessionSimple {
         @session_start();
         $sess = (isset($_SESSION[$name])) ? $_SESSION[$name] : false;
         @session_write_close();
+        return $sess;
     }
 
     function delete($name) {

@@ -16,43 +16,34 @@
 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
-namespace Powerstack\Core;
-use Powerstack\Plugins\Session;
+namespace Powerstack\Plugins\Session;
 
-class SessionFactory {
-    private $session;
-    private $conf;
-
-    function __construct() {
-        $this->conf = config('session');
-
-        if ($this->conf->engine != 'simple') {
-            $class = 'Session' . ucfirst($this->conf->engine);
-
-            if (class_exists($class)) {
-                $this->session = new $class();
-            } else {
-               throw new \Exception("Could not find session engine: " . $this->conf->engine . ", no " . $class . " class was found");
-            }
-        } else {
-            $this->sesssion = new SessionSimple();
-        }
-    }
-
+class SessionMemcached {
     function init() {
-        return $this->session->init();
+        $conf = config('session');
+        ini_set('session.save_handler', 'memcached');
+        return ini_set('session.save_path', $conf->savepath);
     }
 
     function set($name, $value) {
-        return $this->session->set($name, $value);
+        @session_start();
+        $_SESSION[$name] = $value;
+        @session_write_close();
+        return true;
     }
 
     function get($name) {
-        return $this->session->get($name);
+        @session_start();
+        $sess = (isset($_SESSION[$name])) ? $_SESSION[$name] : false;
+        @session_write_close();
+        return $sess;
     }
 
     function delete($name) {
-        return $this->session->delete($name);
+        @session_start();
+        unset($_SESSION[$name]);
+        @session_write_close();
+        return true;
     }
 }
 ?>
