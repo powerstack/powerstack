@@ -1,4 +1,5 @@
 # Powerstack
+[![Build Status](https://travis-ci.org/powerstack/powerstack.png)](https://travis-ci.org/powerstack/powerstack)
 
 Powerstack is a PHP 5 framework that uses a similar routing system
 as Dancer (Perl web framework).
