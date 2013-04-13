@@ -16,13 +16,40 @@
 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/**
+* Database
+* PDO database class for Powerstack
+*
+* @author Christopher Tombleson <chris@powerstack-php.org>
+* @package Powerstack
+* @subpackage Plugins
+*/
+
 namespace Powerstack\Plugins;
 
 class Database {
+    /**
+    * @access private
+    * @var stdclass
+    */
     private $conf;
+
+    /**
+    * @access private
+    * @var PDO
+    */
     private $db;
+
+    /**
+    * @access private
+    * @var bool
+    */
     private $connected = false;
 
+    /**
+    * __construct
+    * Create a new Powerstack\Plugins\Database object
+    */
     function __construct() {
         $conf = config('plugins');
 
@@ -33,6 +60,13 @@ class Database {
         $this->conf = $conf->database;
     }
 
+    /**
+    * Connect
+    * Connect to the database
+    *
+    * @access public
+    * @throws PDOException
+    */
     function connect() {
         global $hooks;
         try {
@@ -59,16 +93,51 @@ class Database {
         }
     }
 
+    /**
+    * Is Connected
+    * Are you connected to the database
+    *
+    * @access public
+    * @return bool true if connected, false otherwise
+    */
     function isConnected() {
         return $this->connected;
     }
 
+    /**
+    * Execute Sql
+    * Execute a sql command
+    *
+    * @access public
+    * @param string $sql    Sql query to execute
+    * @param array  $params Array of replacements values for the query. (optional)
+    * @throws PDOException
+    * @return PDOStatement
+    */
     function executeSql($sql, $params=array()) {
+        if (!$this->connected) {
+            $this->connect();
+        }
+
         $statement = $this->db->prepare($sql);
         $statement->execute($params);
         return $statement;
     }
 
+    /**
+    * Select
+    * Run a select query on the database
+    *
+    * @access public
+    * @param string $table  Name of table to query
+    * @param array  $where  Field => value array to be used as where statements. (optional)
+    * @param array  $like   Field => value array to be used as like statements. (optional)
+    * @param array  $order  Field => order array to be used as order by statement. (optional)
+    * @param int    $limit  Limit number of records. (optional)
+    * @param int    $offset Offset the reccords. (optional)
+    * @throws PDOException
+    * @return PDOStatement
+    */
     function select($table, $where=array(), $like=array(), $order=array(), $limit=null, $offset=null) {
         $sql = "SELECT * FROM " . $table;
         $params = array();
@@ -127,6 +196,16 @@ class Database {
         return $this->executeSql($sql, $params);
     }
 
+    /**
+    * Insert
+    * Insert a record into the database
+    *
+    * @access public
+    * @param string $table      Name of table to insert into
+    * @param array  $record     Field => value array for data to be inserted
+    * @throws PDOException
+    * @return PDOStatment
+    */
     function insert($table, $record) {
         $sql = "INSERT INTO " . $table . "(";
         $params = array();
@@ -148,6 +227,17 @@ class Database {
         return $this->executeSql($sql, $params);
     }
 
+    /**
+    * Update
+    * Update a record into the database
+    *
+    * @access public
+    * @param string $table      Name of table to update
+    * @param array  $record     Field => value array for data to be inserted
+    * @param array  $where  Field => value array to be used as where statements
+    * @throws PDOException
+    * @return PDOStatment
+    */
     function update($table, $record, $where) {
         $sql = "UPDATE " . $table . " SET ";
         $params = array();
@@ -181,6 +271,16 @@ class Database {
         return $this->executeSql($sql, $params);
     }
 
+    /**
+    * Delete
+    * Delete a record from the database
+    *
+    * @access public
+    * @param string $table  Name of table to delete from
+    * @param array  $where  Field => value array to be used as where statements
+    * @throws PDOException
+    * @return PDOStatement
+    */
     function delete($table, $where) {
         $sql = "DELETE FROM " . $table . " WHERE ";
         $params = array();
@@ -205,6 +305,13 @@ class Database {
         return $this->executeSql($sql, $params);
     }
 
+    /**
+    * Build Dsn
+    * Builds the PDO Dsn string
+    *
+    * @access private
+    * @return string PDO Dsn
+    */
     private function buildDsn() {
         if (!in_array($this->conf->driver, \PDO::getAvailableDrivers())) {
             throw new \Exception("PDO driver: " . $this->conf->driver . " is not installed.");

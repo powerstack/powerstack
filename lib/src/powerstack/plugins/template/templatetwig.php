@@ -16,16 +16,46 @@
 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/**
+* Template Twig
+* Twig wrapper class for Powerstack
+*
+* @author Christopher Tombleson <chris@powerstack-php.org>
+* @package Powerstack
+* @subpackage Plugins
+*/
+
 namespace Powerstack\Plugins\Template;
 
 define('TWIGPATH', dirname(__FILE__) . '/lib/twig/lib/Twig/');
 require_once(TWIGPATH . 'Autoloader.php');
 
 class TemplateTwig {
+    /**
+    * @access private
+    * @var TwigEnvironment
+    */
     private $twig;
+
+    /**
+    * @access private
+    * @var stdclass
+    */
     private $conf;
+
+    /**
+    * @access private
+    * @var string
+    */
     private $viewsdir;
 
+    /**
+    * Init
+    * Initalize template engine
+    *
+    * @access public
+    * @return void
+    */
     function init() {
         $this->conf = config('template');
         $this->viewsdir = rtrim($this->conf->viewsdir, '/') . '/';
@@ -41,6 +71,20 @@ class TemplateTwig {
         ));
     }
 
+    /**
+    * Render
+    * Render a template
+    *
+    * Hook before_template_render, function takes the $params as an argument for
+    * changing values on the fly, function must return the $params array.
+    *
+    * @access public
+    * @param string $tpl        Template file to render
+    * @param array  $params     Key => value array of template replacements. (optional, default is empty array)
+    * @param string $layout     Name of layout to use. (optional, default is default)
+    * @throws TwigException
+    * @return string rendered template
+    */
     function render($tpl, $params=array(), $layout='default') {
         global $hooks;
 

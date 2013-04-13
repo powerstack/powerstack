@@ -16,6 +16,15 @@
 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/**
+* Template Simple
+* Simple Template class for Powerstack
+*
+* @author Christopher Tombleson <chris@powerstack-php.org>
+* @package Powerstack
+* @subpackage Core
+*/
+
 namespace Powerstack\Core;
 
 class TemplateSimple {

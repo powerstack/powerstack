@@ -16,15 +16,40 @@
 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/**
+* Session Memcached
+* Memcached session handler for Powerstack
+*
+* @author Christopher Tombleson <chris@powerstack-php.org>
+* @package Powerstack
+* @subpackage Plugins
+*/
+
 namespace Powerstack\Plugins\Session;
 
 class SessionMemcached {
+    /**
+    * Init
+    * Initalize session storage
+    *
+    * @access public
+    * @return bool true on success, false otherwise
+    */
     function init() {
         $conf = config('session');
         ini_set('session.save_handler', 'memcached');
         return ini_set('session.save_path', $conf->savepath);
     }
 
+    /**
+    * Set
+    * Set a session
+    *
+    * @access public
+    * @param string $name   Name of session
+    * @param mixed  $value  Value of session
+    * @return bool true
+    */
     function set($name, $value) {
         @session_start();
         $_SESSION[$name] = $value;
@@ -32,6 +57,14 @@ class SessionMemcached {
         return true;
     }
 
+    /**
+    * Get
+    * Get a session
+    *
+    * @access public
+    * @param string $name   Name of session to get
+    * @return mixed value of session on success, false otherwise
+    */
     function get($name) {
         @session_start();
         $sess = (isset($_SESSION[$name])) ? $_SESSION[$name] : false;
@@ -39,6 +72,14 @@ class SessionMemcached {
         return $sess;
     }
 
+    /**
+    * Delete
+    * Delete a session
+    *
+    * @access public
+    * @param string $name   Name of session to delete
+    * @return bool true
+    */
     function delete($name) {
         @session_start();
         unset($_SESSION[$name]);
