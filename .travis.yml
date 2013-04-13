@@ -8,4 +8,8 @@ branches:
     only:
         - master
 
+notifications:
+    email:
+        - contrib@powerstack-php.org
+
 script: ./.build.sh
