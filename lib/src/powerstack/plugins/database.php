@@ -85,7 +85,7 @@ class Database {
                         $params[] = $val;
                     }
 
-                    $sql .= rtrim($sql, ",") . ") AND "
+                    $sql .= rtrim($sql, ",") . ") AND ";
                 } else {
                     $sql .= $field . "=? AND ";
                     $params[] = $value;
@@ -170,7 +170,7 @@ class Database {
                     $params[] = $val;
                 }
 
-                $sql .= rtrim($sql, ",") . ") AND "
+                $sql .= rtrim($sql, ",") . ") AND ";
             } else {
                 $sql .= $field . "=? AND ";
                 $params[] = $value;
@@ -194,7 +194,7 @@ class Database {
                     $params[] = $val;
                 }
 
-                $sql .= rtrim($sql, ",") . ") AND "
+                $sql .= rtrim($sql, ",") . ") AND ";
             } else {
                 $sql .= $field . "=? AND ";
                 $params[] = $value;
