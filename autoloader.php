@@ -20,6 +20,10 @@ spl_autoload_register(function($classname) {
     $parts = explode('\\', $classname);
     $path = dirname(__FILE__) . '/lib/src/';
 
+    if (strtolower($parts[0]) != 'powerstack') {
+        return;
+    }
+
     for ($i=0; $i <= (count($parts) - 1); $i++) {
         if ($i == (count($parts) - 1)) {
             $path .= strtolower($parts[$i]) . '.php';

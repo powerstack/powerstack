@@ -59,15 +59,16 @@ class TemplateTwig {
     function init() {
         $this->conf = config('template');
         $this->viewsdir = rtrim($this->conf->viewsdir, '/') . '/';
-        Twig_Autoloader::register();
+        \Twig_Autoloader::register();
 
         if (!file_exists($this->viewsdir)) {
             throw new \Exception("View directory: " . $this->viewsdir . ", could not be found.");
         }
 
-        $loader = new Twig_Loader_Filesystem($this->viewsdir);
-        $this->twig = new Twig_Environment($loader, array(
-            'cache' => (isset($this->conf->cachedir)) ? $this->conf->cachedir : '/tmp/twigcache',
+        $loader = new \Twig_Loader_Filesystem($this->viewsdir);
+        $this->twig = new \Twig_Environment($loader, array(
+            'cache' => (isset($this->conf->cachedir)) ? $this->conf->cachedir : null,
+            'autoescape' => false,
         ));
     }
 
@@ -105,10 +106,10 @@ class TemplateTwig {
             }
         }
 
-        $template = $this->twig->render($this->viewsdir . $tpl, $params);
+        $template = $this->twig->render($tpl, $params);
         $params['CONTENT'] = $template;
 
-        $layout = $this->twig->render($this->conf->layouts->{$layout}->file, $params);
+        $layout = $this->twig->render('layouts/'.basename($this->conf->layouts->{$layout}->file), $params);
         return $layout;
     }
 }

@@ -26,7 +26,6 @@
 */
 
 namespace Powerstack\Core;
-use Powerstack\Plugins\Template;
 
 class TemplateFactory {
     /**
@@ -44,7 +43,7 @@ class TemplateFactory {
         $engine = $conf->engine;
 
         if ($engine != 'simple') {
-            $class = 'Template'.ucfirst($engine);
+            $class = 'Powerstack\Plugins\Template\Template'.ucfirst($engine);
 
             if (class_exists($class)) {
                 $this->template = new $class();
