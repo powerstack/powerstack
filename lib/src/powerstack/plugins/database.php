@@ -53,7 +53,7 @@ class Database {
     function __construct() {
         $conf = config('plugins');
 
-        if (!isset($conf->database)) { 
+        if (!isset($conf->database)) {
             throw new \Exception("Please configure the database in config.xml");
         }
 

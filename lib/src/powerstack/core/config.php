@@ -191,7 +191,7 @@ class Config {
         // Processing any plugin configuration
         if (isset($xml->plugins) && !empty($xml->plugins)) {
             $plugins = array();
-            
+
             foreach ($xml->plugins as $plugin) {
                 foreach ($plugin as $name => $conf) {
                     foreach ($conf as $key => $value) {
