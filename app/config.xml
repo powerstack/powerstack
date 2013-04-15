@@ -34,6 +34,11 @@
             <pass>Database passward</pass>
             <port>Database port</port>
         </database>
+        <recaptcha>
+            <publickey>recaptcha public key</publickey>
+            <privatekey>recaptcha private key</privatekey>
+            <ssl>0</ssl>
+        </recaptcha>
     </plugins>-->
     <settings>
         <!--<cookie>

@@ -2,9 +2,19 @@
 function get_files($path, $files=array()) {
     $items = scandir($path);
     $exclude = array('.', '..', '.git', '.lint.php', '.style.php', '.gitignore');
-    $excludepath = '/lib/src/powerstack/plugins/template/lib/';
+    $excludepaths = array(
+        '/lib/src/powerstack/plugins/template/lib/',
+        '/lib/src/powerstack/plugins/captcha/lib/',
+    );
+    $excludepath = false;
 
-    if (!preg_match('#' . $excludepath . '#', $path)) {
+    foreach ($excludepaths as $expath) {
+        if (preg_match('#' . $expath . '#', $path)) {
+            $excludepath = true;
+        }
+    }
+
+    if (!$excludepath) {
         foreach ($items as $item) {
             if (!in_array($item, $exclude)) {
                 if (is_file(realpath($path) . '/' . $item)) {
@@ -106,5 +116,6 @@ if ($error) {
     exit(1);
 }
 
+echo "No coding standard errors found.\n";
 exit(0);
 ?>
