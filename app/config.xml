@@ -39,6 +39,10 @@
             <privatekey>recaptcha private key</privatekey>
             <ssl>0</ssl>
         </recaptcha>
+        <piwik>
+            <domain>piwik domain</domain>
+            <siteid>piwik site ID</siteid>
+        </piwik>
     </plugins>-->
     <settings>
         <!--<cookie>
