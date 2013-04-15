@@ -88,7 +88,11 @@ class TemplateSimple {
 
         if (!empty($prerender)) {
             foreach ($prerender as $hook) {
-                $params = $hook($params);
+                if (is_array($hook)) {
+                    $params = call_user_func($hook, $params);
+                } else {
+                    $params = $hook($params);
+                }
             }
         }
 

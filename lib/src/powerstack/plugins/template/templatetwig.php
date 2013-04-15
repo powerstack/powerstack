@@ -110,7 +110,11 @@ class TemplateTwig {
 
         if (!empty($prerender)) {
             foreach ($prerender as $function) {
-                $params = $function($params);
+                if (is_array($function)) {
+                    $params = call_user_func($function, $params);
+                } else {
+                    $params = $function($params);
+                }
             }
         }
 
