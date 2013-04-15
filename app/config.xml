@@ -43,6 +43,9 @@
             <domain>piwik domain</domain>
             <siteid>piwik site ID</siteid>
         </piwik>
+        <authenication>
+            <salt>22 character (a-zA-z0-9) salt</salt>
+        </authenication>
     </plugins>-->
     <settings>
         <!--<cookie>
