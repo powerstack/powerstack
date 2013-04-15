@@ -178,7 +178,7 @@ class Config {
                 throw new \Exception("Session engine must be set. Default is simple");
             }
 
-            if (!isset($xml->session->svaepath)) {
+            if (!isset($xml->session->savepath)) {
                 throw new \Exception("Session savepath must be set. Default is /tmp/powerstack-sessions");
             }
 

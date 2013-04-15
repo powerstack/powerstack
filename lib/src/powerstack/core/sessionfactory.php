@@ -26,7 +26,6 @@
 */
 
 namespace Powerstack\Core;
-use Powerstack\Plugins\Session;
 
 class SessionFactory {
     /**
@@ -51,7 +50,7 @@ class SessionFactory {
         $this->conf = config('session');
 
         if ($this->conf->engine != 'simple') {
-            $class = 'Session' . ucfirst($this->conf->engine);
+            $class = 'Powerstack\Plugins\Session\Session' . ucfirst($this->conf->engine);
 
             if (class_exists($class)) {
                 $this->session = new $class();
@@ -59,7 +58,7 @@ class SessionFactory {
                throw new \Exception("Could not find session engine: " . $this->conf->engine . ", no " . $class . " class was found");
             }
         } else {
-            $this->sesssion = new SessionSimple();
+            $this->session = new SessionSimple();
         }
     }
 

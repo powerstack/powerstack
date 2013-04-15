@@ -42,6 +42,12 @@ class Database {
 
     /**
     * @access private
+    * @var PDOStatment
+    */
+    private $statement;
+
+    /**
+    * @access private
     * @var bool
     */
     private $connected = false;
@@ -64,6 +70,9 @@ class Database {
     * Connect
     * Connect to the database
     *
+    * Hook database_connected is called after a successful connection is made
+    * to the database. It passes the a reference to the new PDO object.
+    *
     * @access public
     * @throws PDOException
     */
@@ -82,7 +91,11 @@ class Database {
 
             if (!empty($connhooks)) {
                 foreach ($connhooks as $function) {
-                    $function($this->db);
+                    if (is_array($function)) {
+                        call_user_func_array($function, array(&$this->db));
+                    } else {
+                        $function($this->db);
+                    }
                 }
             }
 
@@ -112,16 +125,15 @@ class Database {
     * @param string $sql    Sql query to execute
     * @param array  $params Array of replacements values for the query. (optional)
     * @throws PDOException
-    * @return PDOStatement
+    * @return bool true on success, false otherwise
     */
     function executeSql($sql, $params=array()) {
         if (!$this->connected) {
             $this->connect();
         }
 
-        $statement = $this->db->prepare($sql);
-        $statement->execute($params);
-        return $statement;
+        $this->statement = $this->db->prepare($sql);
+        return $this->statement->execute($params);
     }
 
     /**
@@ -136,7 +148,7 @@ class Database {
     * @param int    $limit  Limit number of records. (optional)
     * @param int    $offset Offset the reccords. (optional)
     * @throws PDOException
-    * @return PDOStatement
+    * @return bool true on success, false otherwise
     */
     function select($table, $where=array(), $like=array(), $order=array(), $limit=null, $offset=null) {
         $sql = "SELECT * FROM " . $table;
@@ -204,7 +216,7 @@ class Database {
     * @param string $table      Name of table to insert into
     * @param array  $record     Field => value array for data to be inserted
     * @throws PDOException
-    * @return PDOStatment
+    * @return bool true on success, false otherwise
     */
     function insert($table, $record) {
         $sql = "INSERT INTO " . $table . "(";
@@ -223,7 +235,7 @@ class Database {
             $params[] = $value;
         }
 
-        $sql = rtrim($sql, ", ");
+        $sql = rtrim($sql, ", ") . ")";
         return $this->executeSql($sql, $params);
     }
 
@@ -236,7 +248,7 @@ class Database {
     * @param array  $record     Field => value array for data to be inserted
     * @param array  $where  Field => value array to be used as where statements
     * @throws PDOException
-    * @return PDOStatment
+    * @return bool true on success, false otherwise
     */
     function update($table, $record, $where) {
         $sql = "UPDATE " . $table . " SET ";
@@ -279,7 +291,7 @@ class Database {
     * @param string $table  Name of table to delete from
     * @param array  $where  Field => value array to be used as where statements
     * @throws PDOException
-    * @return PDOStatement
+    * @return bool true on success, false otherwise
     */
     function delete($table, $where) {
         $sql = "DELETE FROM " . $table . " WHERE ";
@@ -303,6 +315,69 @@ class Database {
 
         $sql = rtrim($sql, " AND ");
         return $this->executeSql($sql, $params);
+    }
+
+    /**
+    * Fetch
+    * Fetch a row from the resultset
+    *
+    * @access public
+    * @param int $fetch     PDO Fetch style. (optional, default is PDO::FETCH_OBJ)
+    * @returns mixed row from resultset
+    */
+    function fetch($fetch=\PDO::FETCH_OBJ) {
+        return $this->statement->fetch($fetch);
+    }
+
+    /**
+    * FetchAll
+    * Fetch all rows from the resultset
+    *
+    * @access public
+    * @param int $fetch     PDO Fetch style. (optional, default is PDO::FETCH_OBJ)
+    * @returns array rows from resultset
+    */
+    function fetchAll($fetch=\PDO::FETCH_OBJ) {
+        return $this->statement->fetchAll($fetch);
+    }
+
+    /**
+    * Row Count
+    * Gets number of rows selected or row affected
+    *
+    * @access public
+    * @return int number of rows selected or row affected
+    */
+    function rowCount() {
+        return $this->statement->rowCount();
+    }
+
+    /**
+    * Statement Error
+    * Get error info about the last statement run
+    *
+    * @access public
+    * @return array with error info
+    */
+    function statementError() {
+        return array(
+            'code' => $this->statement->errorCode(),
+            'info' => $this->statement->errorInfo(),
+        );
+    }
+
+    /**
+    * Database Error
+    * Get error info from database handle
+    *
+    * @access public
+    * @return array with error info
+    */
+    function databaseError() {
+        return array(
+            'code' => $this->db->errorCode(),
+            'info' => $this->db->errorInfo(),
+        );
     }
 
     /**
