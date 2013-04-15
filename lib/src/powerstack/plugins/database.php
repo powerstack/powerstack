@@ -55,6 +55,19 @@ class Database {
     /**
     * __construct
     * Create a new Powerstack\Plugins\Database object
+    *
+    * Configuration:
+    *   app/config.xml:
+    *       <plugins>
+    *           <database>
+    *               <driver>[pgsql | mysql | slqite]</driver>
+    *               <host>[Database Host]</host>
+    *               <name>[Database Name]</name>
+    *               <user>[Database Username]</user>
+    *               <pass>[Database Password]</pass>
+    *               <port>[Database Port]</port>
+    *           </database>
+    *       </plugins>
     */
     function __construct() {
         $conf = config('plugins');

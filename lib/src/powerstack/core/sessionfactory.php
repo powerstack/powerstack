@@ -44,6 +44,13 @@ class SessionFactory {
     * __construct
     * Create a new Powerstack\Core\SessionFactory object
     *
+    * Configuration:
+    *   app/config.xml:
+    *       <session>
+    *           <engine>[session engine]</engine>
+    *           ...
+    *       </session>
+    *
     * @thorws Exception
     */
     function __construct() {

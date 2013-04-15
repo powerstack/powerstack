@@ -53,6 +53,14 @@ class TemplateTwig {
     * Init
     * Initalize template engine
     *
+    * Configuration:
+    *   app/config.xml:
+    *       <template>
+    *           <engine>twig</engine>
+    *           [<cachedir>[path to cache dir]</cachedir>]
+    *           ...
+    *       </template>
+    *
     * @access public
     * @return void
     */

@@ -32,13 +32,25 @@ class SessionSimple {
     * Init
     * Initalize the session storage
     *
+    * Configuration:
+    *   app/config.xml:
+    *       <session>
+    *           <engine>simple</engine>
+    *           [<savepath>[path to directory to store session]</savepath>]
+    *       </session>
+    *
     * @access public
     * @return bool true on success, false otherwise
     */
     function init() {
         $conf = config('session');
-        $savepath = rtrim($conf->savepath, '/');
-        return ini_set('session.save_path', $savepath);
+
+        if (isset($conf->savepath)) {
+            $savepath = rtrim($conf->savepath, '/');
+            return ini_set('session.save_path', $savepath);
+        }
+
+        return true;
     }
 
     /**

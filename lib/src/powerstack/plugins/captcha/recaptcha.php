@@ -44,6 +44,15 @@ class Recaptcha {
     /**
     * __construct
     * Create a new Powerstack\Plugins\Captcha\Recaptcha object
+    *
+    * Configuration:
+    *   app/config.xml:
+    *       <plugins>
+    *           <recaptcha>
+    *               <publickey>[recaptcha public key]</publickey>
+    *               <privatekey>[recaptcha private key]</privatekey>
+    *           </recaptcha>
+    *       </plugins>
     */
     function __construct() {
         $conf = config('plugins');

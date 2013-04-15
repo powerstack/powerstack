@@ -44,6 +44,13 @@ class TemplateSimple {
     * Init
     * Initialize template engine
     *
+    * Configuration:
+    *   app/config.xml:
+    *       <template>
+    *           <engine>simple</engine>
+    *           ...
+    *       </template>
+    *
     * @return bool true
     */
     function init() {

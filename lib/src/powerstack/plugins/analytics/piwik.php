@@ -36,6 +36,15 @@ class Piwik {
     /**
     * __construct
     * Create a new Powerstack\Plugins\Analytics\Piwik object
+    *
+    * Configuration:
+    *   app/config.xml:
+    *       <plugins>
+    *           <piwik>
+    *               <domain>[piwik domain]</domain>
+    *               <siteid>[piwik siteid]</siteid>
+    *           </piwik>
+    *       </plugins>
     */
     function __construct() {
         $conf = config('plugins');

@@ -43,6 +43,14 @@ class Memcached {
     /**
     * __construct
     * Create a new Powerstack\Plugins\Memcached object
+    *
+    * Configuration:
+    *   app/config.xml:
+    *       <plugins>
+    *           <memcached>
+    *               <servers>[Memcached servers (host:port[,host:port])]</servers>
+    *           </memcached>
+    *       </plugins>
     */
     function __construct() {
         $conf = config('plugins');
