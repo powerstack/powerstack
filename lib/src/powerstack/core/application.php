@@ -207,7 +207,11 @@ class Application {
                 $muri = preg_replace('#:([^/]+|.+)#', '(.+)', $uri);
                 if (preg_match('#^' . $muri . '$#', $this->request->request_uri, $matches)) {
                     $this->params->parse_uri($uri, $this->request->request_uri);
-                    return $this->routes[$this->request->request_method][$uri]($this->request, $this->params);
+                    if (is_array($this->routes[$this->request->request_method][$uri])) {
+                        return call_user_func_array($this->routes[$this->request->request_method][$uri], array($this->request, $this->params));
+                    } else {
+                        return $this->routes[$this->request->request_method][$uri]($this->request, $this->params);
+                    }
                 }
             }
 
