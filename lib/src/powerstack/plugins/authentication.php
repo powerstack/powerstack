@@ -17,8 +17,8 @@
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
 /**
-* Authenication
-* Authenication class for Powerstack
+* Authentication
+* Authentication class for Powerstack
 *
 * @author Christopher Tombleson <chris@powerstack-php.org>
 * @package Powerstack
@@ -26,7 +26,7 @@
 */
 namespace Powerstack\Plugins;
 
-class Authenication {
+class Authentication {
     /**
     * @access private
     * @var stdclass

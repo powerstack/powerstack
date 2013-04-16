@@ -1,6 +1,6 @@
 <?php
-use Powerstack\Plugins\Authenication;
-$auth = new Authenication();
+use Powerstack\Plugins\Authentication;
+$auth = new Authentication();
 
 /**
 * Auth

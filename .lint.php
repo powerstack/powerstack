@@ -1,7 +1,7 @@
 <?php
 function get_files($path, $files=array()) {
     $items = scandir($path);
-    $exclude = array('.', '..', '.git', '.lint.php', '.gitignore');
+    $exclude = array('.', '..', '.git', '.lint.php', '.style.php', '.gitignore');
 
     foreach ($items as $item) {
         if (!in_array($item, $exclude)) {
