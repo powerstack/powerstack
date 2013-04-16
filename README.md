@@ -42,5 +42,9 @@ If you want to handle multiple HTTP request methods for a route you can
         // This function will be used for both HTTP POST and HTTP PUT requests
     });
 
+## Support
+IRC: irc.freenode.net #powerstack
+WIKI: coming soon
+
 ## License
 See LICENSE
