@@ -63,7 +63,7 @@ foreach ($files as $file) {
                 $results[$file][($key + 1)][] = 'Curly bracket { is required to be on the same line as class declaration';
             }
 
-            if (preg_match('#else#', $line)) {
+            if (preg_match('#\belse\b#', $line) && !preg_match('#else if#', $line)) {
                 if (!preg_match('#\}\selse\s{$#', $line)) {
                     if (!isset($results[$file][($key + 1)])) { $results[$file][($key + 1)] = array(); }
                     $results[$file][($key + 1)][] = 'Else statements should be wrapped with curly brackets } else {';
@@ -77,7 +77,7 @@ foreach ($files as $file) {
                 }
             }
 
-            if (preg_match('#(else if|foreach|if|for|while|switch|catch)#', $line, $match)) {
+            if (preg_match('#\b(else if|foreach|if|for|while|switch|catch)\b#', $line, $match)) {
                 if (!preg_match('#("|\').+?' . $match[1] .'.+?("|\')#', $line)) {
                     if (!preg_match('#' . $match[1] . '\s\(#', $line)) {
                         if (!isset($results[$file][($key + 1)])) { $results[$file][($key + 1)] = array(); }
