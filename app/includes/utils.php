@@ -36,7 +36,7 @@
 * @return mixed Config variable value
 */
 function config($name, $value = null) {
-    global $config;
+    $config = registry('config');
 
     if (is_null($value)) {
         return $config->{$name};
@@ -57,7 +57,7 @@ function config($name, $value = null) {
 * @return void
 */
 function template($tpl, $params = array(), $layout = 'default') {
-    global $template;
+    $template = registry('template');
     $template->init();
     echo $template->render($tpl, $params, $layout);
 }
@@ -72,7 +72,7 @@ function template($tpl, $params = array(), $layout = 'default') {
 * @return mixed true if setting a session, if getting a session it will return the value or false if no session exists
 */
 function session($name, $value = null) {
-    global $app;
+    $app = registry('app');
 
     if (is_null($value)) {
         return $app->request->session->get($name);
@@ -96,7 +96,7 @@ function session($name, $value = null) {
 * @return mixed cookie value if getting cookie or true/false when setting a cookie
 */
 function cookie($name, $value = null, $expires = 3600, $path='/', $domain='', $secure=false, $httponly=false) {
-    global $app;
+    $app = registry('app');
 
     if (is_null($value)) {
         return $app->request->cookie->get($name);
@@ -115,7 +115,26 @@ function cookie($name, $value = null, $expires = 3600, $path='/', $domain='', $s
 * @return void
 */
 function hook($name, $function) {
-    global $hooks;
+    $hooks = registry('hooks');
     $hooks->register($name, $function);
+}
+
+/**
+* Registry
+* Get or set item in the registry
+*
+* @see Powerstack\Core\Registry
+* @param string $name   Name of item to get or set
+* @param mixed  $value  Value of item to set. (optional, only use when setting a item)
+* @return mixed value or null if getting item, void on set
+*/
+function registry($name, $value=null) {
+    $registry = Powerstack\Core\Registry::getInstance();
+
+    if (is_null($value)) {
+        return $registry->get($name);
+    }
+
+    return $registry->set($name, $value);
 }
 ?>

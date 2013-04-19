@@ -90,7 +90,7 @@ class Database {
     * @throws PDOException
     */
     function connect() {
-        global $hooks;
+        $hooks = registry('hooks');
         try {
             $dsn = $this->buildDsn();
 

@@ -37,22 +37,24 @@ class Cron {
     * @return void
     */
     function run() {
-        global $hooks;
+        $hooks = registry('hooks');
+        $basedir = registry('BASEDIR');
+
         $pid = pcntl_fork();
 
         if ($pid) {
             pcntl_waitpid($pid, $status, WUNTRACED);
 
             if ($status > 0) {
-                if (!file_exists(\BASEDIR . 'logs')) {
-                    @mkdir(\BASEDIR . 'logs');
+                if (!file_exists($basedir . 'logs')) {
+                    @mkdir($basedir . 'logs');
                 }
 
                 $error = "[" . date('Y-m-d H:i:s') . "] ERROR: CRON exited with status, " . $status . "\n";
-                file_put_contents(\BASEDIR . 'logs/cron.' . date('Y-m-d') . '.log', $error, FILE_APPEND);
+                file_put_contents($basedir . 'logs/cron.' . date('Y-m-d') . '.log', $error, FILE_APPEND);
             } else if ($status  == 0) {
                 $error = "[" . date('Y-m-d H:i:s') . "] Successful Cron Run \n";
-                file_put_contents(\BASEDIR . 'logs/cron.' . date('Y-m-d') . '.log', $error, FILE_APPEND);
+                file_put_contents($basedir . 'logs/cron.' . date('Y-m-d') . '.log', $error, FILE_APPEND);
             }
         } else {
             if ($hooks->exists('cron')) {

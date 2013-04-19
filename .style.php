@@ -70,7 +70,7 @@ foreach ($files as $file) {
                 }
             }
 
-            if (preg_match('#try#', $line)) {
+            if (preg_match('#\btry\b#', $line)) {
                 if (!preg_match('#try\s\{#', $line)) {
                     if (!isset($results[$file][($key + 1)])) { $results[$file][($key + 1)] = array(); }
                     $results[$file][($key + 1)][] = 'Curly bracket { is required to be on the same line as try statement';

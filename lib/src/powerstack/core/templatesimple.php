@@ -73,7 +73,7 @@ class TemplateSimple {
     * @return string template
     */
     function render($tpl, $params=array(), $layout='default') {
-        global $hooks;
+        $hooks = registry('hooks');
 
         if (!file_exists($this->viewsdir . $tpl)) {
             throw new \Exception("Template: " . $tpl . ", was not found in " . $this->viewsdir);

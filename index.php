@@ -26,13 +26,24 @@ use Powerstack\Core\Config;
 use Powerstack\Core\Application;
 use Powerstack\Core\Hooks;
 use Powerstack\Core\TemplateFactory;
+use Powerstack\Core\Registry;
+
+registry('BASEDIR', BASEDIR);
+registry('APPDIR', APPDIR);
 
 $config = new Config(APP_DIR . 'config.xml');
+registry('config', $config);
+
 $app = new Application($config);
+
 $hooks = new Hooks();
+registry('hooks', $hooks);
+
 $template = new TemplateFactory();
+registry('template', $template);
 
 require_once(APP_DIR . 'app.php');
 
+registry('app', $app);
 $app->run();
 ?>

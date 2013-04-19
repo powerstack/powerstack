@@ -87,7 +87,7 @@ class Recaptcha {
     * @return bool true on success, false otherwise
     */
     function check() {
-        global $app;
+        $app = registry('app');
         $resp = \recaptcha_check_answer(
             $this->conf->privatekey,
             $app->request->remote_address,

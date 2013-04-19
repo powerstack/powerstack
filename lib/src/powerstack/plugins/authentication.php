@@ -77,7 +77,6 @@ class Authentication {
     *            );
     */
     function __construct() {
-        global $hooks;
         $conf = config('plugins');
 
         if (!isset($conf->authenication)) {
@@ -99,7 +98,7 @@ class Authentication {
     * @return bool true if user is authenicated, false otherwise
     */
     function auth($username, $password) {
-        global $app;
+        $app = registry('app');
 
         $hash = $this->hashPassword($password);
         $result = $this->db->select('users', array('username' => $username, 'password' => $hash));
@@ -132,7 +131,7 @@ class Authentication {
     * @return bool true if user is authenicated, false otherwise
     */
     function authd() {
-        global $app;
+        $app = registry('app');
         $sess = $app->request->session->get('user');
 
         if ($sess === false) {
@@ -150,7 +149,7 @@ class Authentication {
     * @return bool true if user has role, false otherwise
     */
     function hasRole($role) {
-        global $app;
+        $app = registry('app');
         $sess = $app->request->session->get('user');
 
         if ($sess === false) {
