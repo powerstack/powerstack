@@ -28,8 +28,8 @@ use Powerstack\Core\Hooks;
 use Powerstack\Core\TemplateFactory;
 use Powerstack\Core\Registry;
 
-registry('BASEDIR', BASEDIR);
-registry('APPDIR', APPDIR);
+registry('BASEDIR', BASE_DIR);
+registry('APPDIR', APP_DIR);
 
 $config = new Config(APP_DIR . 'config.xml');
 registry('config', $config);

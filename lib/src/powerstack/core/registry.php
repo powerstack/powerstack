@@ -38,7 +38,7 @@ class Registry {
     * @access protected
     * @var Powerstack\Core\Registry Object
     */
-    protected $instance = null;
+    protected static $instance = null;
 
     /**
     * Get Instance
@@ -47,11 +47,11 @@ class Registry {
     * @return Powerstack\Core\Registry
     */
     static function getInstance() {
-        if (is_null($this->instance)) {
-            $this->instance = new Powerstack\Core\Registry();
+        if (is_null(self::$instance)) {
+            self::$instance = new Registry();
         }
 
-        return $this->instance;
+        return self::$instance;
     }
 
     /**
@@ -62,7 +62,7 @@ class Registry {
     * @return mixed null if item not found, otherwise value of item
     */
     function get($name) {
-        if (!$this->exists($name)) {
+        if ($this->exists($name)) {
             return $this->store[$name];
         }
 
