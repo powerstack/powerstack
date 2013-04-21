@@ -1,7 +1,6 @@
 <?php
 use Powerstack\Plugins\Authentication;
-$registry = Powerstack\Core\Registry::getInstance();
-$registry->set('auth', new Authentication());
+use Powerstack\Core\Registry;
 
 /**
 * Auth
@@ -10,7 +9,12 @@ $registry->set('auth', new Authentication());
 * @see Powerstack\Plugins\Authenication::auth()
 */
 function auth($username, $password) {
-    $registry = Powerstack\Core\Registry::getInstance();
+    $registry = Registry::getInstance();
+
+    if (!$registry->exists('auth')) {
+        $registry->set('auth', new Authentication());
+    }
+
     $auth = $registry->get('auth');
     return $auth->auth($username, $password);
 }
@@ -22,7 +26,12 @@ function auth($username, $password) {
 * @see Powerstack\Plugins\Authenicated::authd()
 */
 function authd() {
-    $registry = Powerstack\Core\Registry::getInstance();
+    $registry = Registry::getInstance();
+
+    if (!$registry->exists('auth')) {
+        $registry->set('auth', new Authentication());
+    }
+
     $auth = $registry->get('auth');
     return $auth->authd();
 }
@@ -34,7 +43,12 @@ function authd() {
 * @see Powerstack\Plugins\Authenicated::hasRole()
 */
 function hasRole($role) {
-    $registry = Powerstack\Core\Registry::getInstance();
+    $registry = Registry::getInstance();
+
+    if (!$registry->exists('auth')) {
+        $registry->set('auth', new Authentication());
+    }
+
     $auth = $registry->get('auth');
     return $auth->hasRole($role);
 }
@@ -46,7 +60,12 @@ function hasRole($role) {
 * @see Powerstack\Plugins\Authenicated::hashPassword()
 */
 function hashPassword($password) {
-    $registry = Powerstack\Core\Registry::getInstance();
+    $registry = Registry::getInstance();
+
+    if (!$registry->exists('auth')) {
+        $registry->set('auth', new Authentication());
+    }
+
     $auth = $registry->get('auth');
     return $auth->hashPassword($password);
 }
