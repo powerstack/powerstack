@@ -83,22 +83,22 @@ class Application {
     */
     function any($methods, $uri, $function) {
         if (!is_array($methods)) {
-            throw new \Exception("The any function requires an array for methods not a " . gettype($methods) . ".");
+            throw new Exception("The any function requires an array for methods not a " . gettype($methods) . ".");
         }
 
         if (!is_string($uri)) {
-            throw new \Exception("The any function requires an string for the uri not a " . gettype($uri) . ".");
+            throw new Exception("The any function requires an string for the uri not a " . gettype($uri) . ".");
         }
 
         if (!is_callable($function)) {
-            throw new \Exception("The any function requires a callable function for the function, make sure it's callable.");
+            throw new Exception("The any function requires a callable function for the function, make sure it's callable.");
         }
 
         $allowed_methods = array('get', 'post', 'put', 'delete');
 
         foreach ($methods as $method) {
             if (!in_array(strtolower($method), $allowed_methods)) {
-                throw new \Exception("HTTP Method: " . $method . " is not valid.");
+                throw new Exception("HTTP Method: " . $method . " is not valid.");
             } else {
                 $this->routes[strtolower($method)][$uri] = $function;
             }
@@ -117,11 +117,11 @@ class Application {
     */
     function get($uri, $function) {
         if (!is_string($uri)) {
-            throw new \Exception("The get function requires an string for the uri not a " . gettype($uri) . ".");
+            throw new Exception("The get function requires an string for the uri not a " . gettype($uri) . ".");
         }
 
         if (!is_callable($function)) {
-            throw new \Exception("The get function requires a callable function for the function, make sure it's callable.");
+            throw new Exception("The get function requires a callable function for the function, make sure it's callable.");
         }
 
         $this->routes['get'][$uri] = $function;
@@ -139,11 +139,11 @@ class Application {
     */
     function post($uri, $function) {
         if (!is_string($uri)) {
-            throw new \Exception("The post function requires an string for the uri not a " . gettype($uri) . ".");
+            throw new Exception("The post function requires an string for the uri not a " . gettype($uri) . ".");
         }
 
         if (!is_callable($function)) {
-            throw new \Exception("The post function requires a callable function for the function, make sure it's callable.");
+            throw new Exception("The post function requires a callable function for the function, make sure it's callable.");
         }
 
         $this->routes['post'][$uri] = $function;
@@ -161,11 +161,11 @@ class Application {
     */
     function put($uri, $function) {
         if (!is_string($uri)) {
-            throw new \Exception("The put function requires an string for the uri not a " . gettype($uri) . ".");
+            throw new Exception("The put function requires an string for the uri not a " . gettype($uri) . ".");
         }
 
         if (!is_callable($function)) {
-            throw new \Exception("The put function requires a callable function for the function, make sure it's callable.");
+            throw new Exception("The put function requires a callable function for the function, make sure it's callable.");
         }
 
         $this->routes['put'][$uri] = $function;
@@ -183,11 +183,11 @@ class Application {
     */
     function delete($uri, $function) {
         if (!is_string($uri)) {
-            throw new \Exception("The delete function requires an string for the uri not a " . gettype($uri) . ".");
+            throw new Exception("The delete function requires an string for the uri not a " . gettype($uri) . ".");
         }
 
         if (!is_callable($function)) {
-            throw new \Exception("The delete function requires a callable function for the function, make sure it's callable.");
+            throw new Exception("The delete function requires a callable function for the function, make sure it's callable.");
         }
 
         $this->routes['delete'][$uri] = $function;
@@ -215,9 +215,9 @@ class Application {
                 }
             }
 
-            throw new \Exception("No route found for: " . $this->request->request_uri);
+            throw new NotFoundException("No route found for: " . $this->request->request_uri);
         } else {
-            throw new \Exception("No routes found for HTTP " . $this->request->request_method . ".");
+            throw new NotFoundException("No routes found for HTTP " . $this->request->request_method . ".");
         }
     }
 }

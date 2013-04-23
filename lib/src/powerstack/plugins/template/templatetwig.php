@@ -70,7 +70,7 @@ class TemplateTwig {
         \Twig_Autoloader::register();
 
         if (!file_exists($this->viewsdir)) {
-            throw new \Exception("View directory: " . $this->viewsdir . ", could not be found.");
+            throw new Powerstack\Core\Exception("View directory: " . $this->viewsdir . ", could not be found.");
         }
 
         $loader = new \Twig_Loader_Filesystem($this->viewsdir);
@@ -98,7 +98,7 @@ class TemplateTwig {
         $hooks = registry('hooks');
 
         if (!file_exists($this->viewsdir . $tpl)) {
-            throw new \Exception("Template: " . $tpl . ", was not found in " . $this->viewsdir);
+            throw new Powerstack\Core\Exception("Template: " . $tpl . ", was not found in " . $this->viewsdir);
         }
 
         if (!isset($params['SITENAME'])) {

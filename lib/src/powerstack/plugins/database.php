@@ -73,7 +73,7 @@ class Database {
         $conf = config('plugins');
 
         if (!isset($conf->database)) {
-            throw new \Exception("Please configure the database in config.xml");
+            throw new Powerstack\Core\Exception("Please configure the database in config.xml");
         }
 
         $this->conf = $conf->database;

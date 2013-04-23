@@ -10,52 +10,23 @@
 *
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 *
-* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING 
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
 * BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
 * IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
-define('BASE_DIR', dirname(__FILE__) . '/');
-define('APP_DIR', dirname(__FILE__) . '/app/');
+/**
+* NotFoundException
+* NotFoundException class for Powerstack
+*
+* @author Christopher Tombleson <chris@powerstack-php.org>
+* @package Powerstack
+* @subpackage Core
+*/
 
-require_once(BASE_DIR . 'autoloader.php');
-require_once(APP_DIR . 'includes/utils.php');
+namespace Powerstack\Core;
 
-use Powerstack\Core\Config;
-use Powerstack\Core\Application;
-use Powerstack\Core\Hooks;
-use Powerstack\Core\TemplateFactory;
-use Powerstack\Core\Registry;
-
-registry('BASEDIR', BASE_DIR);
-registry('APPDIR', APP_DIR);
-
-$config = new Config(APP_DIR . 'config.xml');
-registry('config', $config);
-
-$app = new Application($config);
-
-$hooks = new Hooks();
-registry('hooks', $hooks);
-
-$template = new TemplateFactory();
-registry('template', $template);
-
-require_once(APP_DIR . 'app.php');
-
-registry('app', $app);
-
-try {
-    $app->run();
-} catch (Powerstack\Core\NotFoundException $e) {
-    if (substr(php_sapi_name(), 0, 3) == 'cgi') {
-        header("Status: 404 Not Found");
-    } else {
-        header("HTTP/1.0 404 Not Found");
-    }
-
-    template('404.tpl');
-    exit;
+class NotFoundException extends Exception {
 }
 ?>

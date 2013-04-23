@@ -44,11 +44,11 @@ class Config {
     */
     function __construct($conf_file) {
         if (!is_string($conf_file)) {
-            throw new \Exception("Powerstack\Core\Config::__construct() take a string a parameter not a " . gettype($conf_file) . ".");
+            throw new Exception("Powerstack\Core\Config::__construct() take a string a parameter not a " . gettype($conf_file) . ".");
         }
 
         if (!file_exists($conf_file)) {
-            throw new \Exception("Config file: " . $conf_file . " doesn't exist please create it.");
+            throw new Exception("Config file: " . $conf_file . " doesn't exist please create it.");
         }
 
         $this->load_config($conf_file);
@@ -94,24 +94,24 @@ class Config {
         $xml = simplexml_load_file($conf_file);
 
         if (empty($xml)) {
-            throw new \Exception("Unable to read config file: " . $conf_file . ", file maybe be empty.");
+            throw new Exception("Unable to read config file: " . $conf_file . ", file maybe be empty.");
         }
 
         // Processing the application configuration
         if (!isset($xml->application)) {
-            throw new \Exception("There is no application information in " . $conf_file . ", this is required.");
+            throw new Exception("There is no application information in " . $conf_file . ", this is required.");
         }
 
         if (!isset($xml->application->name)) {
-            throw new \Exception("There is no application name information in " . $conf_file . ", this is required.");
+            throw new Exception("There is no application name information in " . $conf_file . ", this is required.");
         }
 
         if (!isset($xml->application->version)) {
-            throw new \Exception("There is no application version information in " . $conf_file . ", this is required.");
+            throw new Exception("There is no application version information in " . $conf_file . ", this is required.");
         }
 
         if (!isset($xml->application->author)) {
-            throw new \Exception("There is no application author information in " . $conf_file . ", author name is required.");
+            throw new Exception("There is no application author information in " . $conf_file . ", author name is required.");
         }
 
         $this->application = (object) array(
@@ -137,15 +137,15 @@ class Config {
             );
         } else {
             if (!isset($xml->template->engine)) {
-                throw new \Exception("There is no template engine information in " . $conf_file .", if unsure use core.");
+                throw new Exception("There is no template engine information in " . $conf_file .", if unsure use core.");
             }
 
             if (!isset($xml->template->viewsdir)) {
-                throw new \Exception("There is no template viewsdir information in " . $conf_file .", if unsure use app/views.");
+                throw new Exception("There is no template viewsdir information in " . $conf_file .", if unsure use app/views.");
             }
 
             if (!isset($xml->template->layouts)) {
-                throw new \Exception("There is no template layouts information in " . $conf_file . ", this is required.");
+                throw new Exception("There is no template layouts information in " . $conf_file . ", this is required.");
             }
 
             $layouts = array();
@@ -157,7 +157,7 @@ class Config {
             }
 
             if (!isset($layouts['default'])) {
-                throw new \Exception("A layout woth the name default is required in " . $conf_file );
+                throw new Exception("A layout woth the name default is required in " . $conf_file );
             }
 
             $this->template = (object) array(
@@ -175,11 +175,11 @@ class Config {
             );
         } else {
             if (!isset($xml->session->engine)) {
-                throw new \Exception("Session engine must be set. Default is simple");
+                throw new Exception("Session engine must be set. Default is simple");
             }
 
             if (!isset($xml->session->savepath)) {
-                throw new \Exception("Session savepath must be set. Default is /tmp/powerstack-sessions");
+                throw new Exception("Session savepath must be set. Default is /tmp/powerstack-sessions");
             }
 
             $this->session = (object) array(

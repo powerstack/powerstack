@@ -80,7 +80,7 @@ class Authentication {
         $conf = config('plugins');
 
         if (!isset($conf->authenication)) {
-            throw new \Exception("Please configure authenication plugin in config.xml");
+            throw new Powerstack\Core\Exception("Please configure authenication plugin in config.xml");
         }
 
         $this->conf = $conf->authenication;
