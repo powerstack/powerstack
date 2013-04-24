@@ -18,7 +18,7 @@
 */
 spl_autoload_register(function($classname) {
     $parts = explode('\\', $classname);
-    $path = dirname(__FILE__) . '/lib/src/';
+    $path = dirname(__FILE__) . '/lib/';
 
     if (strtolower($parts[0]) != 'powerstack') {
         return;
