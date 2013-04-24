@@ -137,4 +137,15 @@ function registry($name, $value=null) {
 
     return $registry->set($name, $value);
 }
+
+/**
+* Redirect
+* Redirect user to another page.
+*
+* @param string $url     Url to rediret to.
+*/
+function redirect($url) {
+    header('Location: ' . $url);
+    exit;
+}
 ?>
