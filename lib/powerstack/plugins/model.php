@@ -44,6 +44,13 @@ class Model {
     * __construct()
     * Create a new instance of Powerstack\Plugins\Model
     *
+    * Configuration:
+    *   app/config.xml:
+    *       <settings>
+    *           <modelsdir>app/models</modelsdir>
+    *           ...
+    *       </settings>
+    *
     * @throws Powerstack\Core\Exception
     */
     function __construct() {
@@ -184,10 +191,19 @@ class Model {
                         case 'eq':
                             $sql .= "=";
                             break;
+
+                        case 'like':
+                            $sql .= 'LIKE';
+                            break;
                     }
 
                     $sql .= "? AND ";
-                    $params[] = $value['value'];
+
+                    if ($op == 'like') {
+                        $params[] = '%'.$value['value'].'%';
+                    } else {
+                        $params[] = $value['value'];
+                    }
                 } else {
                     $sql .= $field . " IN(";
 
