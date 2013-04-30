@@ -24,17 +24,20 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class TemplateSimple {
     /**
+    * Voess Directory
+    *
     * @access private
     * @var string
     */
     private $viewsdir;
 
     /**
+    * Config object
+    *
     * @access private
     * @var stdclass
     */

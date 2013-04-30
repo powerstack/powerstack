@@ -24,17 +24,20 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class SessionFactory {
     /**
+    * Session object
+    *
     * @access private
     * @var Session object
     */
     private $session;
 
     /**
+    * Config object
+    *
     * @access private
     * @var stdclass
     */

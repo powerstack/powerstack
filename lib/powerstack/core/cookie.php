@@ -24,41 +24,52 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class Cookie {
     /**
+    * Cookie Name
+    *
     * @access private
     * @var string
     */
     private $cookie_name;
 
     /**
+    * Cookie Expiry
+    *
     * @access private
     * @var int
     */
     private $expire;
 
     /**
+    * Cookie Path
+    *
     * @access private
     * @var string
     */
     private $path;
 
     /**
+    * Cookie Domain
+    *
     * @access private
     * @var string
     */
     private $domain;
 
     /**
+    * Cookie Secure
+    *
     * @access private
     * @var bool
     */
     private $secure;
 
     /**
+    * Cookie HTTP Only
+    *
     * @access private
     * @var bool
     */

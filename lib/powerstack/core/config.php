@@ -24,11 +24,12 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class Config {
     /**
+    * Config object
+    *
     * @access protected
     * @var stdclass
     */

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <title>Powerstack</title>
+    <parser>
+        <target>../powerstack-docs</target>
+        <markers>
+            <item>TODO</item>
+            <item>FIXME</item>
+        </markers>
+        <extensions>
+            <extension>php</extension>
+        </extensions>
+        <visibility></visibility>
+    </parser>
+    <transformer>
+        <target>../powerstack-docs</target>
+    </transformer>
+    <transformations>
+        <template name="responsive" />
+    </transformations>
+    <files>
+        <directory>app</directory>
+        <directory>lib/powerstack/core</directory>
+        <directory>lib/powerstack/plugins</directory>
+        <directory>./</directory>
+        <ignore>.git/*</ignore>
+        <ignore>lib/powerstack/plugins/*/lib/*</ignore>
+        <ignore>.lint.php</ignore>
+        <ignore>.style.php</ignore>
+    </files>
+</phpdoc>

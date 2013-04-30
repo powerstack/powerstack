@@ -24,65 +24,84 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class Request {
     /**
+    * Request Method
+    *
     * @access public
     * @var string
     */
     public $request_method;
 
     /**
+    * Request URI
+    *
     * @access public
     * @var string
     */
     public $request_uri;
 
     /**
+    * HTTPS
+    *
     * @access public
     * @var bool
     */
     public $https;
 
     /**
+    * Remote Address
+    *
     * @access public
     * @var string
     */
     public $remote_address;
 
     /**
+    * HTTP Referer
+    *
     * @access public
     * @var string
     */
     public $http_referer;
 
     /**
+    * User Agent
+    *
     * @access public
     * @var string
     */
     public $user_agent;
 
     /**
+    * Query String
+    *
     * @access public
     * @var string
     */
     public $query_string;
 
     /**
+    * Base Uri
+    *
     * @access public
     * @var string
     */
     public $base_uri;
 
     /**
+    * Powerstack\Core\Cookie object
+    *
     * @access public
     * @var Powerstack\Core\Cookie
     */
     public $cookie;
 
     /**
+    * Powerstack\Core\Session object
+    *
     * @access public
     * @var Powerstack\Core\SessionFactory
     */

@@ -24,11 +24,12 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class TemplateFactory {
     /**
+    * Template object
+    *
     * @access private
     * @var Template class
     */

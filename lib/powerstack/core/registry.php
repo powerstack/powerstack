@@ -24,17 +24,20 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class Registry {
     /**
+    * Array to store all registry items
+    *
     * @access protected
     * @var array
     */
     protected $store = array();
 
     /**
+    * Singleton Instance
+    *
     * @access protected
     * @var Powerstack\Core\Registry Object
     */

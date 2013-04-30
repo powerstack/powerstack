@@ -24,29 +24,36 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class Application {
     /**
+    * Powerstack\Core\Config object
+    *
     * @acess public
     * @var Powerstack\Core\Config
     */
     public $config;
 
     /**
+    * Powerstack\Core\Request object
+    *
     * @access public
     * @var Powerstack\Core\Request
     */
     public $request;
 
     /**
+    * Powerstack\Core\Params object
+    *
     * @access public
     * @var Powerstack\Core\Params
     */
     public $params;
 
     /**
+    * Array that holds all the route info
+    *
     * @access private
     * @var array
     */
