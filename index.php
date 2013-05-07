@@ -27,6 +27,7 @@ use Powerstack\Core\Application;
 use Powerstack\Core\Hooks;
 use Powerstack\Core\TemplateFactory;
 use Powerstack\Core\Registry;
+use Powerstack\Core\ErrorHandler;
 
 registry('BASEDIR', BASE_DIR);
 registry('APPDIR', APP_DIR);
@@ -42,6 +43,9 @@ registry('hooks', $hooks);
 $template = new TemplateFactory();
 registry('template', $template);
 
+$errorhandler = new ErrorHandler();
+set_error_handler(array($errorhandler, 'handler'), E_ALL);
+
 require_once(APP_DIR . 'app.php');
 
 registry('app', $app);
@@ -55,7 +59,7 @@ try {
         header("HTTP/1.0 404 Not Found");
     }
 
-    template('404.tpl');
+    template('powerstack/404.tpl');
     exit;
 }
 ?>

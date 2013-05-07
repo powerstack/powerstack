@@ -52,5 +52,8 @@
             <expires>3600</expires>
             <domain>.localhost</domain>
         </cookie>-->
+
+        <!-- Debug is only recommended when developing app and not for production -->
+        <debug>1</debug>
     </settings>
 </config>
