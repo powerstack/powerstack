@@ -28,6 +28,7 @@ use Powerstack\Core\Hooks;
 use Powerstack\Core\TemplateFactory;
 use Powerstack\Core\Registry;
 use Powerstack\Core\ErrorHandler;
+use Powerstack\Core\ExceptionHandler;
 
 registry('BASEDIR', BASE_DIR);
 registry('APPDIR', APP_DIR);
@@ -45,6 +46,9 @@ registry('template', $template);
 
 $errorhandler = new ErrorHandler();
 set_error_handler(array($errorhandler, 'handler'), E_ALL);
+
+$exception = new ExceptionHandler();
+set_exception_handler(array($exception, 'handler'));
 
 require_once(APP_DIR . 'app.php');
 
