@@ -45,7 +45,7 @@ If you want to handle multiple HTTP request methods for a route you can
 ## Contributing
 All issues are tracked on Github, [Report a bug] (https://github.com/powerstack/powerstack/issues)
 
-More info on contributing can be found on the [Wiki] (https://github.com/powerstack/powerstack/wiki)
+More info on contributing can be found on the [Wiki] (https://github.com/powerstack/powerstack/wiki/Contributing)
 
 ## Support
 IRC: irc.freenode.net #powerstack
