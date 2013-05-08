@@ -6,7 +6,7 @@ application:
         email: Email
 
 template:
-    engine: twig
+    engine: simple
     viewsdir: app/views
     layouts:
         default:

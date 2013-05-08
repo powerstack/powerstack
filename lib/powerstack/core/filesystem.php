@@ -138,7 +138,7 @@ class Filesystem {
     * @access public
     * @param string $file   File to write to
     * @param string $data   Data to write to file
-    * @return bool true oin success, otherwise false
+    * @return bool true on success, otherwise false
     */
     public static function writeFile($file, $data) {
         if (function_exists('file_put_contents')) {
