@@ -46,12 +46,10 @@ class Authentication {
     * Depends on Powerstack\Plugins\Database
     *
     * Configuration:
-    *   app/config.xml:
-    *       <plugins>
-    *           <authenication>
-    *               <salt>[A 22 character salt of a-z A-Z 0-9]</salt>
-    *           </authenication>
-    *       </plugins>
+    *   app/config.yml:
+    *       plugins:
+    *           authenication:
+    *               salt: [A 22 character salt of a-z A-Z 0-9]
     *
     *   Database:
     *       mysql:
@@ -80,7 +78,7 @@ class Authentication {
         $conf = config('plugins');
 
         if (!isset($conf->authenication)) {
-            throw new Powerstack\Core\Exception("Please configure authenication plugin in config.xml");
+            throw new Powerstack\Core\Exception("Please configure authenication plugin in config.yml");
         }
 
         $this->conf = $conf->authenication;

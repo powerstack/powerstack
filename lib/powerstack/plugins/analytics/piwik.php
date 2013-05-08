@@ -38,20 +38,19 @@ class Piwik {
     * Create a new Powerstack\Plugins\Analytics\Piwik object
     *
     * Configuration:
-    *   app/config.xml:
-    *       <plugins>
-    *           <piwik>
-    *               <domain>[piwik domain]</domain>
-    *               <siteid>[piwik siteid]</siteid>
-    *           </piwik>
-    *       </plugins>
+    *   app/config.yml:
+    *       plugins:
+    *           piwik:
+    *               domain: [piwik domain]
+    *               siteid: [piwik siteid]
+    *
     */
     function __construct() {
         $conf = config('plugins');
         $this->conf = $conf->piwik;
 
         if (!isset($this->conf)) {
-            throw new Powerstack\Core\Exception("Please configure Piwik in config.xml");
+            throw new Powerstack\Core\Exception("Please configure Piwik in config.yml");
         }
     }
 

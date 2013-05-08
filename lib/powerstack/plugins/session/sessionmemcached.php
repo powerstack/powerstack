@@ -33,11 +33,10 @@ class SessionMemcached {
     * Initalize session storage
     *
     * Configuration:
-    *   app/config.xml:
-    *       <session>
-    *           <engine>memcached</engine>
-    *           <savepath>[memcached server (host:port[,host:port])]</savepath>
-    *       </session>
+    *   app/config.yml:
+    *       session:
+    *           engine: memcached
+    *           savepath: [memcached server (host:port[,host:port])]
     *
     * @access public
     * @return bool true on success, false otherwise

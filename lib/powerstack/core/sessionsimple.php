@@ -32,11 +32,10 @@ class SessionSimple {
     * Initalize the session storage
     *
     * Configuration:
-    *   app/config.xml:
-    *       <session>
-    *           <engine>simple</engine>
-    *           [<savepath>[path to directory to store session]</savepath>]
-    *       </session>
+    *   app/config.yml:
+    *       session:
+    *           engine: simple
+    *           [savepath:[path to directory to store session]]
     *
     * @access public
     * @return bool true on success, false otherwise

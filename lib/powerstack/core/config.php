@@ -40,7 +40,7 @@ class Config {
     * Create a new Powerstack\Core\Config object
     *
     * @access public
-    * @param string $conf_file  Path to config xml file
+    * @param string $conf_file  Path to config yaml file
     * @throws Exception
     */
     function __construct($conf_file) {

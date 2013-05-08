@@ -48,11 +48,9 @@ class SessionFactory {
     * Create a new Powerstack\Core\SessionFactory object
     *
     * Configuration:
-    *   app/config.xml:
-    *       <session>
-    *           <engine>[session engine]</engine>
-    *           ...
-    *       </session>
+    *   app/config.yml:
+    *       session:
+    *           engine:[session engine]
     *
     * @thorws Exception
     */

@@ -27,9 +27,6 @@
 
 namespace Powerstack\Plugins\Template;
 
-#define('TWIGPATH', dirname(__FILE__) . '/lib/twig/lib/Twig/');
-#require_once(TWIGPATH . 'Autoloader.php');
-
 class TemplateTwig {
     /**
     * @access private
@@ -54,12 +51,10 @@ class TemplateTwig {
     * Initalize template engine
     *
     * Configuration:
-    *   app/config.xml:
-    *       <template>
-    *           <engine>twig</engine>
-    *           [<cachedir>[path to cache dir]</cachedir>]
-    *           ...
-    *       </template>
+    *   app/config.yml:
+    *       template:
+    *           engine: twig
+    *           [cachedir: [path to cache dir]]
     *
     * @access public
     * @return void

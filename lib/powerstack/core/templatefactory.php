@@ -40,11 +40,10 @@ class TemplateFactory {
     * Create a new Powerstack\Core\TemplateFactory object
     *
     * Configuration:
-    *   app/config.xml:
-    *       <template>
-    *           <engine>[template engine]</engine>
-    *           ...
-    *       </template>
+    *   app/config.yml:
+    *       template:
+    *           engine: [template engine]
+    *
     */
     function __construct() {
         $conf = config('template');

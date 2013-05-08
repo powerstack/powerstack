@@ -46,19 +46,18 @@ class Recaptcha {
     * Create a new Powerstack\Plugins\Captcha\Recaptcha object
     *
     * Configuration:
-    *   app/config.xml:
-    *       <plugins>
-    *           <recaptcha>
-    *               <publickey>[recaptcha public key]</publickey>
-    *               <privatekey>[recaptcha private key]</privatekey>
-    *           </recaptcha>
-    *       </plugins>
+    *   app/config.yml:
+    *       plugins:
+    *           recaptcha:
+    *               publickey: [recaptcha public key]
+    *               privatekey: [recaptcha private key]
+    *
     */
     function __construct() {
         $conf = config('plugins');
 
         if (!isset($conf->recaptcha)) {
-            throw new Powerstack\Core\Exception("Please configure the recaptcha plugin in config.xml");
+            throw new Powerstack\Core\Exception("Please configure the recaptcha plugin in config.yml");
         }
 
         $this->conf = $conf->recaptcha;

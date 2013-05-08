@@ -45,11 +45,9 @@ class Model {
     * Create a new instance of Powerstack\Plugins\Model
     *
     * Configuration:
-    *   app/config.xml:
-    *       <settings>
-    *           <modelsdir>app/models</modelsdir>
-    *           ...
-    *       </settings>
+    *   app/config.yml:
+    *       settings:
+    *           modelsdir: app/models
     *
     * @throws Powerstack\Core\Exception
     */
@@ -57,7 +55,7 @@ class Model {
         $conf = registry('config');
 
         if (!isset($conf->settings->modelsdir)) {
-            throw new Powerstack\Core\Exception("No models directory in config.xml");
+            throw new Powerstack\Core\Exception("No models directory in config.yml");
         }
 
         if (!isset($conf->plugins->database)) {

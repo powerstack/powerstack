@@ -57,23 +57,22 @@ class Database {
     * Create a new Powerstack\Plugins\Database object
     *
     * Configuration:
-    *   app/config.xml:
-    *       <plugins>
-    *           <database>
-    *               <driver>[pgsql | mysql | slqite]</driver>
-    *               <host>[Database Host]</host>
-    *               <name>[Database Name]</name>
-    *               <user>[Database Username]</user>
-    *               <pass>[Database Password]</pass>
-    *               <port>[Database Port]</port>
-    *           </database>
-    *       </plugins>
+    *   app/config.yml:
+    *       plugins:
+    *           database:
+    *               driver: [pgsql | mysql | sqlite]
+    *               host: [Database Host]
+    *               name: [Database Name]
+    *               user: [Database Username]
+    *               pass: [Database Password]
+    *               port: [Database Port]
+    *
     */
     function __construct() {
         $conf = config('plugins');
 
         if (!isset($conf->database)) {
-            throw new Powerstack\Core\Exception("Please configure the database in config.xml");
+            throw new Powerstack\Core\Exception("Please configure the database in config.yml");
         }
 
         $this->conf = $conf->database;
