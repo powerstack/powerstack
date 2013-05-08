@@ -18,8 +18,10 @@
 */
 define('BASE_DIR', dirname(__FILE__) . '/');
 define('APP_DIR', dirname(__FILE__) . '/app/');
+define('VENDOR_DIR', dirname(__FILE__) . '/vendor/');
 
 require_once(BASE_DIR . 'autoloader.php');
+require_once(VENDOR_DIR . 'autoload.php');
 require_once(APP_DIR . 'includes/utils.php');
 
 use Powerstack\Core\Config;
@@ -32,8 +34,9 @@ use Powerstack\Core\ExceptionHandler;
 
 registry('BASEDIR', BASE_DIR);
 registry('APPDIR', APP_DIR);
+registry('VENDORDIR', VENDOR_DIR);
 
-$config = new Config(APP_DIR . 'config.xml');
+$config = new Config(APP_DIR . 'config.yml');
 registry('config', $config);
 
 $app = new Application($config);

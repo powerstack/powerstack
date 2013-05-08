@@ -1,2 +1,4 @@
 *.swp
 logs/*
+vendor/*
+composer.lock

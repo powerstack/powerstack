@@ -1,0 +1,6 @@
+{
+    "require": {
+        "lespoilus/spyc": "dev-master",
+        "twig/twig": "v1.12.3"
+    }
+}

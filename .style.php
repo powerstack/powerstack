@@ -3,7 +3,7 @@ function get_files($path, $files=array()) {
     $items = scandir($path);
     $exclude = array('.', '..', '.git', '.lint.php', '.style.php', '.gitignore');
     $excludepaths = array(
-        '/lib/powerstack/plugins/template/lib/',
+        '/vendor/',
         '/lib/powerstack/plugins/captcha/lib/',
     );
     $excludepath = false;

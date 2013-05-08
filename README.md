@@ -7,6 +7,9 @@ as Dancer (Perl web framework).
 Project is still in early and active development.
 The first stable release is due soon.
 
+## Setup
+Read the [Quick Start Guide] (https://github.com/powerstack/powerstack/wiki/Quick-Start)
+
 ## Examples
 This is a basic route that renders a template.
 

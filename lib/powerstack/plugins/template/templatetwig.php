@@ -27,8 +27,8 @@
 
 namespace Powerstack\Plugins\Template;
 
-define('TWIGPATH', dirname(__FILE__) . '/lib/twig/lib/Twig/');
-require_once(TWIGPATH . 'Autoloader.php');
+#define('TWIGPATH', dirname(__FILE__) . '/lib/twig/lib/Twig/');
+#require_once(TWIGPATH . 'Autoloader.php');
 
 class TemplateTwig {
     /**

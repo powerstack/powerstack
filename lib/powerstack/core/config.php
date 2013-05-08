@@ -87,46 +87,35 @@ class Config {
     * Load the config file into class variables
     *
     * @access protected
-    * @param string $conf_file  Path to config xml file
+    * @param string $conf_file  Path to config file
     * @throws Exception
     * @return void
     */
     protected function load_config($conf_file) {
-        $xml = simplexml_load_file($conf_file);
-
-        if (empty($xml)) {
-            throw new Exception("Unable to read config file: " . $conf_file . ", file maybe be empty.");
-        }
+        $yaml = \Spyc::YAMLLoad($conf_file);
+        $config = $this->arrayToObj($yaml);
 
         // Processing the application configuration
-        if (!isset($xml->application)) {
+        if (!isset($config->application)) {
             throw new Exception("There is no application information in " . $conf_file . ", this is required.");
         }
 
-        if (!isset($xml->application->name)) {
+        if (!isset($config->application->name)) {
             throw new Exception("There is no application name information in " . $conf_file . ", this is required.");
         }
 
-        if (!isset($xml->application->version)) {
+        if (!isset($config->application->version)) {
             throw new Exception("There is no application version information in " . $conf_file . ", this is required.");
         }
 
-        if (!isset($xml->application->author)) {
+        if (!isset($config->application->author)) {
             throw new Exception("There is no application author information in " . $conf_file . ", author name is required.");
         }
 
-        $this->application = (object) array(
-            'name' => strval($xml->application->name),
-            'version' => doubleval($xml->application->version),
-            'author' => (object) array(
-                'name' => strval($xml->application->author->name),
-                'email' => empty($xml->application->author->email) ? null : strval($xml->application->author->email),
-                'website' => empty($xml->application->author->website) ? null : strval($xml->application->author->website),
-            ),
-        );
+        $this->application = $config->application;
 
-        // Processing the template configuration
-        if (!isset($xml->template)) {
+        // Process template config
+        if (!isset($config->template)) {
             $this->template = (object) array(
                 'engine' => 'core',
                 'viewsdir' => 'app/views',
@@ -137,149 +126,59 @@ class Config {
                 ),
             );
         } else {
-            if (!isset($xml->template->engine)) {
+            if (!isset($config->template->engine)) {
                 throw new Exception("There is no template engine information in " . $conf_file .", if unsure use core.");
             }
 
-            if (!isset($xml->template->viewsdir)) {
+            if (!isset($config->template->viewsdir)) {
                 throw new Exception("There is no template viewsdir information in " . $conf_file .", if unsure use app/views.");
             }
 
-            if (!isset($xml->template->layouts)) {
+            if (!isset($config->template->layouts)) {
                 throw new Exception("There is no template layouts information in " . $conf_file . ", this is required.");
             }
 
-            $layouts = array();
-
-            foreach ($xml->template->layouts->layout as $layout) {
-                $layouts[strval($layout->name)] = (object) array(
-                    'file' => strval($layout->file),
-                );
-            }
-
-            if (!isset($layouts['default'])) {
-                throw new Exception("A layout woth the name default is required in " . $conf_file );
-            }
-
-            $this->template = (object) array(
-                'engine' => strval($xml->template->engine),
-                'viewsdir' => strval($xml->template->viewsdir),
-                'layouts' => (object) $layouts,
-            );
+            $this->template = $config->template;
         }
 
         // Process session configuration
-        if (!isset($xml->session)) {
+        if (!isset($config->session)) {
             $this->session = (object) array(
                 'savepath' => '/tmp/powerstack-sessions',
                 'engine' => 'simple',
             );
         } else {
-            if (!isset($xml->session->engine)) {
+            if (!isset($config->session->engine)) {
                 throw new Exception("Session engine must be set. Default is simple");
             }
 
-            if (!isset($xml->session->savepath)) {
+            if (!isset($config->session->savepath)) {
                 throw new Exception("Session savepath must be set. Default is /tmp/powerstack-sessions");
             }
 
-            $this->session = (object) array(
-                'savepath' => $xml->session->savepath,
-                'engine' => $xml->session->engine,
-            );
+            $this->session = $config->session;
         }
 
-        // Processing any plugin configuration
-        if (isset($xml->plugins) && !empty($xml->plugins)) {
-            $plugins = array();
-
-            foreach ($xml->plugins as $plugin) {
-                foreach ($plugin as $name => $conf) {
-                    foreach ($conf as $key => $value) {
-                        if (!isset($plugins[$name])) {
-                            $plugins[$name] = new \stdClass();
-                        }
-
-                        $plugins[$name]->{$key} = strval($value);
-                    }
-                }
-            }
-
-            $this->plugins = (object) $plugins;
+        // Process plugin config
+        if (isset($config->plugins) && !empty($config->plugins)) {
+            $this->plugins = $config->plugins;
         }
 
-        // Process misc settings
-        if (isset($xml->settings) && !empty($xml->settings)) {
-            $this->settings = $this->get_misc_settings($xml->settings);
+        if (isset($config->settings) && !empty($config->settings)) {
+            $this->settings = $config->settings;
         }
     }
 
     /**
-    * Get Misc Settings
-    * Get the misc settings form the config file
+    * Array To Obj
+    * Convert an array to a object
     *
     * @access protected
-    * @param SimpleXML Object   $xml    The settings SimpleXML object
-    * @param mixed  $settings   The current value of the settings object. (optional)
-    * @param mixed  $parentname The name of the parent object
-    * @return stdclass settings
+    * @param array $array   Array to convert to object
+    * @return object
     */
-    protected function get_misc_settings($xml, $settings = null, $parentname = null) {
-        if (is_null($settings)) {
-            $settings  = new \stdClass();
-        }
-
-        if (!empty($parentname)) {
-            if (strpos($parentname, ',') !== false) {
-                $names = explode(',', $parentname);
-                $search = $names[0];
-
-                for ($i = 0; $i < count($names); $i++) {
-                    if ($i > 0) {
-                        $search .= "->" . $names[$i];
-                    }
-
-                    if (!isset($settings->{$search})) {
-                        $settings->{$search} = new \stdClass();
-                    }
-                }
-            } else {
-                if (!isset($settings->{$parentname})) {
-                    $settings->{$parentname} = new \stdClass();
-                }
-            }
-        }
-
-        if (!empty($parentname)) {
-            if (strpos($parentname, ',') !== false) {
-                $search = implode('->', explode(',', $parentname));
-            } else {
-                $search = $parentname;
-            }
-        }
-
-        if (empty($parentname)) {
-            foreach ($xml as $setting) {
-                foreach ($setting as $name => $value) {
-                    $children = $value->children();
-                    if (!empty($children)) {
-                        if (!empty($parentname)) {
-                            $settings = $this->get_misc_settings($value, $settings, $parentname . "," . $name);
-                        } else {
-                            $settings = $this->get_misc_settings($value, $settings, $name);
-                        }
-                    } else {
-                        $settings->{$name} = strval($value);
-                    }
-                }
-            }
-        } else {
-            foreach ($xml as $name => $value) {
-                $settings->{$search}->{$name} = strval($value);
-            }
-        }
-
-        return $settings;
+    protected function arrayToObj($array) {
+        return is_array($array) ? (object) array_map(array($this, __FUNCTION__), $array) : $array;
     }
 }
 ?>
