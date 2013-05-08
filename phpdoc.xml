@@ -25,6 +25,7 @@
         <directory>./</directory>
         <ignore>.git/*</ignore>
         <ignore>lib/powerstack/plugins/*/lib/*</ignore>
+        <ignore>vendor/*</ignore>
         <ignore>.lint.php</ignore>
         <ignore>.style.php</ignore>
     </files>
