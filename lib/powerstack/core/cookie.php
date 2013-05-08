@@ -78,6 +78,18 @@ class Cookie {
     /**
     * __construct
     * Create a new Powerstack\Core\Cookie object
+    *
+    * Configuration:
+    *   app/config.yml
+    *       settings:
+    *           cookie:
+    *               cookie_name: name of cookie
+    *               expire: how long cookie is valid for
+    *               path: path cookie is for
+    *               domain: domain cookie is for
+    *               secure: cookie only over https
+    *               httponly: lock cookie down to just http
+    *
     */
     function __construct() {
         $defaults = array(
@@ -133,7 +145,13 @@ class Cookie {
     * @param bool   $httponly   When TRUE the cookie will be made accessible only through the HTTP protocol. (optional, default is false)
     * @return bool true or false based on success
     */
-    function set($name, $value, $expire=3600, $path='/', $domain='', $secure=false, $httponly=false) {
+    function set($name, $value, $expire=null, $path=null, $domain=null, $secure=null, $httponly=null) {
+        $expire = is_null($expire) ? $this->expire : $expire;
+        $path = is_null($path) ? $this->path : $path;
+        $domain = is_null($domain) ? $this->domain : $domain;
+        $secure = is_null($secure) ? $this->secure : $secure;
+        $httponly = is_null($httponly) ? $this->httponly : $httponly;
+
         if (isset($_COOKIE[$this->cookie_name])) {
             $cookie = json_decode($_COOKIE[$this->cookie_name]);
             $cookie[$name] = $value;
