@@ -1,0 +1,45 @@
+application:
+    name: Powerstack
+    version: 1.0
+    author:
+        name: Name
+        email: Email
+
+template:
+    engine: simple
+    viewsdir: app/views
+    layouts:
+        default:
+            file: app/views/layouts/default.tpl
+
+#session:
+#    engine: simple
+#    savepath: /tmp/sessions
+
+#plugins:
+#    memcached:
+#        servers: 127.0.0.1:11211
+#    database:
+#        driver: pgsql | mysql | sqlite
+#        host: localhost
+#        name: Database Name
+#        user: Database Username
+#        pass: Database Password
+#        port: Database Port
+#    recaptcha:
+#        publickey: recaptcha public key
+#        privatekey: recaptcha private key
+#        ssl: false
+#    piwik:
+#        domain: piwik domain
+#        siteid: piwik siteid
+#    authenication:
+#        salt: 22 character salt
+#
+settings:
+#    cookie:
+#        expires: 3600
+#        domain: .localhost
+
+    # Debug mode should only be used for development!!!!!!!!!
+    debug: true

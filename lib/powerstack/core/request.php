@@ -115,7 +115,7 @@ class Request {
         $this->request_method = strtolower($_SERVER['REQUEST_METHOD']);
         $this->query_string = $_SERVER['QUERY_STRING'];
         $this->http_referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['HTTP_REFERER'];
-        $this->http_user_agent = $_SERVER['HTTP_USER_AGENT'];
+        $this->user_agent = $_SERVER['HTTP_USER_AGENT'];
         $this->https = empty($_SERVER['HTTPS']) ? false : true;
         $this->remote_address = $_SERVER['REMOTE_ADDR'];
         $this->request_uri = $this->get_requesturi();
