@@ -97,6 +97,23 @@ class Registry {
     }
 
     /**
+    * Delete
+    * Delete an item for the registry
+    *
+    * @access public
+    * @param string $name   Name of item to remove
+    * @return bool true on success, false otherwise
+    */
+    function delete($name) {
+        if ($this->exists($name)) {
+            unset($this->store[$name]);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
     * __construct
     *
     * @access private
