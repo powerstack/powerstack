@@ -24,7 +24,6 @@
 * @package Powerstack
 * @subpackage Plugins
 */
-
 namespace Powerstack\Plugins\Session;
 
 class SessionMemcached {

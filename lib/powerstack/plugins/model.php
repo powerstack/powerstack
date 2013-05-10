@@ -24,17 +24,18 @@
 * @package Powerstack
 * @subpackage Plugins
 */
-
 namespace Powerstack\Plugins;
 
 class Model {
     /**
+    * The sql query that represents a model
     * @access private
     * @var string
     */
     private $query = null;
 
     /**
+    * Powerstack\Plugins\Database object
     * @access private
     * @var Powerstack\Plugin\Database
     */
@@ -268,7 +269,7 @@ class Model {
     * Process Offset
     *
     * @access private
-    * @param int $limit Offset records
+    * @param int $offset Offset records
     * @return string offset sql string
     */
     private function processOffset($offset) {

@@ -140,7 +140,7 @@ class Cookie {
     * @param string $value      Value of cookie
     * @param int    $expire     The time the cookie expires. (optional, default is an hour from creation)
     * @param string $path       The path on the server in which the cookie will be available on.  (optional, default is /)
-    * @param string $domian     The domain that the cookie is available to. (optional, default is '')
+    * @param string $domain     The domain that the cookie is available to. (optional, default is '')
     * @param bool   $secure     Indicates that the cookie should only be transmitted over a secure HTTPS connection from the client. (optional, default is false)
     * @param bool   $httponly   When TRUE the cookie will be made accessible only through the HTTP protocol. (optional, default is false)
     * @return bool true or false based on success

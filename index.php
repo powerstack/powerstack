@@ -16,6 +16,9 @@
 * IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 * OR OTHER DEALINGS IN THE SOFTWARE.
 */
+/**
+* Index file for application
+*/
 define('BASE_DIR', dirname(__FILE__) . '/');
 define('APP_DIR', dirname(__FILE__) . '/app/');
 define('VENDOR_DIR', dirname(__FILE__) . '/vendor/');

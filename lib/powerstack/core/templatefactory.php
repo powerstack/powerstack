@@ -78,9 +78,9 @@ class TemplateFactory {
     * Render a template
     *
     * @access public
-    * @param string $tpl    Template to render
-    * @param array  $params A key => value array of template replacement vars. (optional, default empty array)
-    * @param string $layout Layout to use. (optional, default is default layout)
+    * @param string $template   Template to render
+    * @param array  $params     A key => value array of template replacement vars. (optional, default empty array)
+    * @param string $layout     Layout to use. (optional, default is default layout)
     * @return string template
     */
     function render($template, $params=array(), $layout='default') {

@@ -24,18 +24,21 @@
 * @package Powerstack
 * @subpackage Plugins
 */
-
 namespace Powerstack\Plugins\Captcha;
 require_once(dirname(__FILE__) . '/lib/recaptcha/recaptchalib.php');
 
 class Recaptcha {
     /**
+    * Configuration info
+    *
     * @access private
     * @var stdclass
     */
     private $conf;
 
     /**
+    * Recaptcha error object
+    *
     * @access private
     * @var ReCaptchaResponse
     */

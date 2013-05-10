@@ -27,6 +27,14 @@
 namespace Powerstack\Core;
 
 class Exception extends \Exception {
+    /**
+    * Create new exception
+    *
+    * @access public
+    * @param string     $message    Exception message
+    * @param int        $code       Exception code
+    * @param Exception  $previous   Previous exception
+    */
     public function __construct($message, $code = 0, Exception $previous = null) {
         parent::__construct($message, $code,$previous);
     }

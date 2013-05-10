@@ -71,7 +71,7 @@ class Application {
     * @access public
     * @param Powerstack\Core\Config $config Powerstack config object
     */
-    function __construct(Config $config) {
+    function __construct(Powerstack\Core\Config $config) {
         $this->config = $config;
         $this->request = new Request();
         $this->params = new Params();

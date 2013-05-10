@@ -24,23 +24,28 @@
 * @package Powerstack
 * @subpackage Plugins
 */
-
 namespace Powerstack\Plugins\Template;
 
 class TemplateTwig {
     /**
+    * Twig Object
+    *
     * @access private
     * @var TwigEnvironment
     */
     private $twig;
 
     /**
+    * Configuration info
+    *
     * @access private
     * @var stdclass
     */
     private $conf;
 
     /**
+    * Views Directory
+    *
     * @access private
     * @var string
     */

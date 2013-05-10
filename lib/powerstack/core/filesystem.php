@@ -220,7 +220,7 @@ class Filesystem {
     * @access public
     * @param sting  $dir        Directory to scan
     * @param bool   $recursive  Recursivly scan. (optional default is false)
-    * @param array  $dir        Array of found directories. (optional default is empty array)
+    * @param array  $dirs       Array of found directories. (optional default is empty array)
     * @return array of found directories
     */
     public static function listDirs($dir, $recursive=false, $dirs=array()) {

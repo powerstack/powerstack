@@ -28,12 +28,14 @@ namespace Powerstack\Plugins;
 
 class Authentication {
     /**
+    * Configuration info
     * @access private
     * @var stdclass
     */
     private $conf;
 
     /**
+    * Powerstack\Plugins\Database object
     * @access private
     * @var Powerstack\Plugins\Database
     */

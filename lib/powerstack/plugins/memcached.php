@@ -24,17 +24,20 @@
 * @package Powerstack
 * @subpackage Plugins
 */
-
 namespace Powerstack\Plugins;
 
 class Memcached {
     /**
+    * Configuration info
+    *
     * @access private
     * @var stdclass
     */
     private $conf;
 
     /**
+    * Memcached object
+    *
     * @access private
     * @var Memcached
     */
@@ -147,7 +150,7 @@ class Memcached {
     * Delete multiple items from memcached
     *
     * @access public
-    * @param array  $key    Array of keys to delete
+    * @param array  $keys    Array of keys to delete
     * @param int    $time   How long to wait before deleting item. (optional, default is 0)
     * @return bool true on success, false otherwise
     */
@@ -195,7 +198,7 @@ class Memcached {
     * Get multiple items from memcached
     *
     * @access public
-    * @param array $key    Array of keys to get
+    * @param array $keys    Array of keys to get
     * @return mixed array of found values on success, false otherwise
     */
     function getMulti($keys) {

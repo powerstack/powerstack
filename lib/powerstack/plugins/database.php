@@ -24,29 +24,36 @@
 * @package Powerstack
 * @subpackage Plugins
 */
-
 namespace Powerstack\Plugins;
 
 class Database {
     /**
+    * Configuration info
+    *
     * @access private
     * @var stdclass
     */
     private $conf;
 
     /**
+    * PDO Object
+    *
     * @access private
     * @var PDO
     */
     private $db;
 
     /**
+    * PDO Statement Object
+    *
     * @access private
     * @var PDOStatment
     */
     private $statement;
 
     /**
+    * Is the database connected
+    *
     * @access private
     * @var bool
     */

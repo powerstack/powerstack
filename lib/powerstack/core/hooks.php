@@ -24,11 +24,12 @@
 * @package Powerstack
 * @subpackage Core
 */
-
 namespace Powerstack\Core;
 
 class Hooks {
     /**
+    * Array that stores hooks
+    *
     * @access private
     * @var array
     */
@@ -40,7 +41,7 @@ class Hooks {
     *
     * @acess public
     * @param string     $name       Name of hook to register
-    * @param callback   $functon    Function to be executed when hook is run
+    * @param callback   $function    Function to be executed when hook is run
     * @return bool true
     */
     function register($name, $function) {

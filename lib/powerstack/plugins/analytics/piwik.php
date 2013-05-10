@@ -28,6 +28,8 @@ namespace Powerstack\Plugins\Analytics;
 
 class Piwik {
     /**
+    * Configuration info
+    *
     * @access private
     * @var stdclass
     */

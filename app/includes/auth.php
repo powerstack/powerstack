@@ -1,4 +1,7 @@
 <?php
+/**
+* Authenication helper functions
+*/
 use Powerstack\Plugins\Authentication;
 use Powerstack\Core\Registry;
 

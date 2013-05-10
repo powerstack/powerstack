@@ -26,7 +26,6 @@
 * @package Powerstack
 * @subpackage Plugins
 */
-
 namespace Powerstack\Plugins;
 
 class Cron {
