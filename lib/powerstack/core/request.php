@@ -118,28 +118,10 @@ class Request {
         $this->user_agent = $_SERVER['HTTP_USER_AGENT'];
         $this->https = empty($_SERVER['HTTPS']) ? false : true;
         $this->remote_address = $_SERVER['REMOTE_ADDR'];
-        $this->request_uri = $this->get_requesturi();
+        $this->request_uri = $_SERVER['REQUEST_URI'];
         $this->base_uri = $_SERVER['SERVER_NAME'];
         $this->cookie = new Cookie();
         $this->session = new SessionFactory();
-    }
-
-    /**
-    * Get Request Uri
-    * Get the requet uri either for $_SERVER['REQUEST_URI'] or $_GET['q']
-    *
-    * @access protected
-    * @return string the request uri
-    */
-    protected function get_requesturi() {
-        $uri = empty($_GET['q']) ? $_SERVER['REQUEST_URI'] : $_GET['q'];
-
-        if (strpos($uri, '?') !== false) {
-            $parts = explode('?', $uri);
-            $uri = $parts[0];
-        }
-
-        return $uri;
     }
 }
 ?>

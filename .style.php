@@ -5,6 +5,7 @@ function get_files($path, $files=array()) {
     $excludepaths = array(
         '/vendor/',
         '/lib/powerstack/plugins/captcha/lib/',
+        '/tests',
     );
     $excludepath = false;
 

@@ -57,7 +57,7 @@ class SessionFactory {
     function __construct() {
         $this->conf = config('session');
 
-        if ($this->conf->engine != 'simple') {
+        if (!empty($this->conf->engine) && $this->conf->engine != 'simple') {
             $class = 'Powerstack\Plugins\Session\Session' . ucfirst($this->conf->engine);
 
             if (class_exists($class)) {
