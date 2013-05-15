@@ -1,0 +1,114 @@
+Installing Powerstack:
+  1. Get Code
+  2. Configure Web Server
+  3. Configure Your Application
+
+====================================
+Get Code
+====================================
+The best way to get Powerstack is via git & Github.
+
+Get Stable Version:
+    $git clone git@github.com:powerstack/powerstack.git powerstack
+    $cd powerstack
+    $git checkout --track origin/[VERSION]_STABLE
+    $git checkout --track origin/1.0_STABLE
+
+Get Beta Version:
+    $git clone git@github.com:powerstack/powerstack.git powerstack
+    $cd powerstack
+    $git checkout --track origin/[VERSION]_BETA
+    $git checkout --track origin/1.0_BETA
+
+Get Dev Version:
+    $git clone git@github.com:powerstack/powerstack.git powerstack
+
+====================================
+Configure Web Server
+====================================
+
+Nginx Conf (PHP-FPM):
+    server {
+        server_name domain.tld;
+        root /var/www/powerstack; ## <-- Your only path reference.
+        access_log /var/log/powerstack.access.log;
+        error_log /var/log/powerstack.error.log;
+
+        location = /favicon.ico {
+            log_not_found off;
+            access_log off;
+        }
+
+        location = /robots.txt {
+            allow all;
+            log_not_found off;
+            access_log off;
+        }
+
+        # Very rarely should these ever be accessed outside of your lan
+        location ~* \.(txt|log)$ {
+            allow 192.168.0.0/16;
+            deny all;
+        }
+
+        location ~ \..*/.*\.php$ {
+            return 403;
+        }
+
+        # Block access to "hidden" files and directories whose names begin with a
+        # period. This includes directories used by version control systems such
+        # as Subversion or Git to store control files.
+        location ~ (^|/)\. {
+            return 403;
+        }
+
+        location / {
+            # This is cool because no php is touched for static content
+            try_files $uri @rewrite;
+        }
+
+        location @rewrite {
+            rewrite ^/(.*)$ /index.php;
+        }
+
+        location ~ \.php$ {
+            fastcgi_split_path_info ^(.+\.php)(/.+)$;
+            #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+            include fastcgi_params;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+            fastcgi_intercept_errors on;
+            fastcgi_pass unix:/var/run/php5-fpm.sock;
+        }
+    }
+
+Apache (MOD_PHP):
+    <VirtualHost *:80>
+        DocumentRoot /var/www/powerstack/ # Path to powerstack project
+
+        ErrorLog /var/log/apache2/error.log
+        LogLevel warn
+        CustomLog /var/log/apache2/access.log combined
+
+        <Directory />
+            Options FollowSymLinks
+            AllowOverride all
+        </Directory>
+
+        <Directory /var/www/powerstack/>
+            Options All Indexes FollowSymLinks MultiViews
+            AllowOverride all
+            Order allow,deny
+            allow from all
+
+            RewriteEngine on
+            RewriteBase /
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteCond %{REQUEST_FILENAME} !-d
+            RewriteRule ^(.*)$ index.php [L,QSA]
+        </Directory>
+    </VirtualHost>
+
+====================================
+Configure Your Application
+====================================
+Edit your app/config.yml file and configure any plugins you want to use.
