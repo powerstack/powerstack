@@ -2,15 +2,29 @@
 function get_files($path, $files=array()) {
     $items = scandir($path);
     $exclude = array('.', '..', '.git', '.lint.php', '.style.php', '.gitignore');
+    $excludepaths = array(
+        '/vendor/',
+        '/lib/powerstack/plugins/captcha/lib/',
+        '/tests',
+    );
+    $excludepath = false;
 
-    foreach ($items as $item) {
-        if (!in_array($item, $exclude)) {
-            if (is_file(realpath($path) . '/' . $item)) {
-                if (preg_match('#\.php$#', $item)) {
-                    $files[] = realpath($path) . '/' . $item;
+    foreach ($excludepaths as $expath) {
+        if (preg_match('#' . $expath . '#', $path)) {
+            $excludepath = true;
+        }
+    }
+
+    if (!$excludepath) {
+        foreach ($items as $item) {
+            if (!in_array($item, $exclude)) {
+                if (is_file(realpath($path) . '/' . $item)) {
+                    if (preg_match('#\.php$#', $item)) {
+                        $files[] = realpath($path) . '/' . $item;
+                    }
+                } else {
+                    $files = get_files(realpath($path) . '/' . $item, $files);
                 }
-            } else {
-                $files = get_files(realpath($path) . '/' . $item, $files);
             }
         }
     }
