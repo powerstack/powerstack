@@ -103,6 +103,14 @@ class Filesystem {
     * @return mixed contents of file on success, otherwise false
     */
     public static function readFile($file) {
+        if (!file_exists($file)) {
+            throw new CoreException("Unable to read file: " . $file . " as it does not exist");
+        }
+
+        if (!is_readable($file)) {
+            throw new CoreException("Unable to read file: " . $file . " as it is not readable");
+        }
+
         if (function_exists('file_get_contents')) {
             $content = file_get_contents($file);
 
@@ -141,6 +149,10 @@ class Filesystem {
     * @return bool true on success, otherwise false
     */
     public static function writeFile($file, $data) {
+        if (!is_writeable(dirname($file))) {
+            throw new CoreException("Unable to write file: " .$file . " directory is not writeable");
+        }
+
         if (function_exists('file_put_contents')) {
             if (file_put_contents($file, $data) !== false) {
                 return true;
@@ -173,6 +185,14 @@ class Filesystem {
     * @return bool true on success, otherwise false
     */
     public static function appendFile($file, $data) {
+        if (!file_exists($file)) {
+            throw new CoreException("Unable to append to file: " . $file . " as file does not exist");
+        }
+
+        if (!is_writeable($file)) {
+            throw new CoreException("Unable to append to file: " . $file . " as file is not writable");
+        }
+
         if (function_exists('file_put_contents')) {
             if (file_put_contents($file, $data, FILE_APPEND) !== false) {
                 return true;
@@ -277,6 +297,10 @@ class Filesystem {
     * @return bool true on sucess, otherwise false
     */
     public static function mkdir($dir, $chmod=0755, $recursive=false) {
+        if (!is_writeable(dirname($dir))) {
+            throw new CoreException("Directory: " . dirname($dir) . " is not writeable, unable to create new directory");
+        }
+
         return mkdir($dir, $chmod, $recursive);
     }
 
