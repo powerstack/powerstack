@@ -54,10 +54,22 @@ class Cron {
                 }
 
                 $error = "[" . date('Y-m-d H:i:s') . "] ERROR: CRON exited with status, " . $status . "\n";
-                file_put_contents($basedir . 'logs/cron.' . date('Y-m-d') . '.log', $error, FILE_APPEND);
+                $logpath = $basedir . 'logs/cron.' . date('Y-m-d') . '.log';
+
+                if (!file_exists($log_path)) {
+                    Powerstack\Core\Filesystem::writeFile($logpath, $error);
+                } else {
+                    Powerstack\Core\Filesystem::appendFile($logpath, $error);
+                }
             } else if ($status  == 0) {
                 $error = "[" . date('Y-m-d H:i:s') . "] Successful Cron Run \n";
-                file_put_contents($basedir . 'logs/cron.' . date('Y-m-d') . '.log', $error, FILE_APPEND);
+                $logpath = $basedir . 'logs/cron.' . date('Y-m-d') . '.log';
+
+                if (!file_exists($log_path)) {
+                    Powerstack\Core\Filesystem::writeFile($logpath, $error);
+                } else {
+                    Powerstack\Core\Filesystem::appendFile($logpath, $error);
+                }
             }
         } else {
             if ($hooks->exists('cron')) {
