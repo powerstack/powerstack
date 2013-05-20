@@ -41,15 +41,15 @@ class Config {
     *
     * @access public
     * @param string $conf_file  Path to config yaml file
-    * @throws Exception
+    * @throws CoreException
     */
     function __construct($conf_file) {
         if (!is_string($conf_file)) {
-            throw new Exception("Powerstack\Core\Config::__construct() take a string a parameter not a " . gettype($conf_file) . ".");
+            throw new CoreException("Powerstack\Core\Config::__construct() take a string a parameter not a " . gettype($conf_file) . ".");
         }
 
         if (!file_exists($conf_file)) {
-            throw new Exception("Config file: " . $conf_file . " doesn't exist please create it.");
+            throw new CoreException("Config file: " . $conf_file . " doesn't exist please create it.");
         }
 
         $this->load_config($conf_file);
@@ -88,7 +88,7 @@ class Config {
     *
     * @access protected
     * @param string $conf_file  Path to config file
-    * @throws Exception
+    * @throws CoreException
     * @return void
     */
     protected function load_config($conf_file) {
@@ -97,19 +97,19 @@ class Config {
 
         // Processing the application configuration
         if (!isset($config->application)) {
-            throw new Exception("There is no application information in " . $conf_file . ", this is required.");
+            throw new CoreException("There is no application information in " . $conf_file . ", this is required.");
         }
 
         if (!isset($config->application->name)) {
-            throw new Exception("There is no application name information in " . $conf_file . ", this is required.");
+            throw new CoreException("There is no application name information in " . $conf_file . ", this is required.");
         }
 
         if (!isset($config->application->version)) {
-            throw new Exception("There is no application version information in " . $conf_file . ", this is required.");
+            throw new CoreException("There is no application version information in " . $conf_file . ", this is required.");
         }
 
         if (!isset($config->application->author)) {
-            throw new Exception("There is no application author information in " . $conf_file . ", author name is required.");
+            throw new CoreException("There is no application author information in " . $conf_file . ", author name is required.");
         }
 
         $this->application = $config->application;
@@ -127,15 +127,15 @@ class Config {
             );
         } else {
             if (!isset($config->template->engine)) {
-                throw new Exception("There is no template engine information in " . $conf_file .", if unsure use core.");
+                throw new CoreException("There is no template engine information in " . $conf_file .", if unsure use core.");
             }
 
             if (!isset($config->template->viewsdir)) {
-                throw new Exception("There is no template viewsdir information in " . $conf_file .", if unsure use app/views.");
+                throw new CoreException("There is no template viewsdir information in " . $conf_file .", if unsure use app/views.");
             }
 
             if (!isset($config->template->layouts)) {
-                throw new Exception("There is no template layouts information in " . $conf_file . ", this is required.");
+                throw new CoreException("There is no template layouts information in " . $conf_file . ", this is required.");
             }
 
             $this->template = $config->template;
@@ -149,11 +149,11 @@ class Config {
             );
         } else {
             if (!isset($config->session->engine)) {
-                throw new Exception("Session engine must be set. Default is simple");
+                throw new CoreException("Session engine must be set. Default is simple");
             }
 
             if (!isset($config->session->savepath)) {
-                throw new Exception("Session savepath must be set. Default is /tmp/powerstack-sessions");
+                throw new CoreException("Session savepath must be set. Default is /tmp/powerstack-sessions");
             }
 
             $this->session = $config->session;

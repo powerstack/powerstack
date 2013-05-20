@@ -36,6 +36,10 @@ class Cron {
     * @return void
     */
     function run() {
+        if (strtolower(PHP_OS) != 'linux') {
+            throw new PluginException("Cron only works on Linux");
+        }
+
         $hooks = registry('hooks');
         $basedir = registry('BASEDIR');
 

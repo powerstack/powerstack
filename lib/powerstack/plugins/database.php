@@ -79,7 +79,7 @@ class Database {
         $conf = config('plugins');
 
         if (!isset($conf->database)) {
-            throw new Powerstack\Core\Exception("Please configure the database in config.yml");
+            throw new PluginException("Please configure the database in config.yml");
         }
 
         $this->conf = $conf->database;
@@ -408,11 +408,11 @@ class Database {
     */
     private function buildDsn() {
         if (!in_array($this->conf->driver, \PDO::getAvailableDrivers())) {
-            throw new \Exception("PDO driver: " . $this->conf->driver . " is not installed.");
+            throw new PluginException("PDO driver: " . $this->conf->driver . " is not installed.");
         }
 
         if (!in_array($this->conf->driver, array('mysql', 'sqlite', 'pgsql'))) {
-            throw new \Exception("Database is not supported. MySQL, SQLite and PostgreSQL are aupported");
+            throw new PluginException("Database is not supported. MySQL, SQLite and PostgreSQL are aupported");
         }
 
         switch ($this->conf->driver) {

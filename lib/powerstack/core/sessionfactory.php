@@ -63,7 +63,7 @@ class SessionFactory {
             if (class_exists($class)) {
                 $this->session = new $class();
             } else {
-               throw new Exception("Could not find session engine: " . $this->conf->engine . ", no " . $class . " class was found");
+               throw new CoreException("Could not find session engine: " . $this->conf->engine . ", no " . $class . " class was found");
             }
         } else {
             $this->session = new SessionSimple();

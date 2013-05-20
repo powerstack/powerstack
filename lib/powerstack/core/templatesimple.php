@@ -77,7 +77,7 @@ class TemplateSimple {
         $hooks = registry('hooks');
 
         if (!file_exists($this->viewsdir . $tpl)) {
-            throw new Exception("Template: " . $tpl . ", was not found in " . $this->viewsdir);
+            throw new CoreException("Template: " . $tpl . ", was not found in " . $this->viewsdir);
         }
 
         if (!isset($params['SITENAME'])) {

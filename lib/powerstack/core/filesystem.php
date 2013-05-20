@@ -100,6 +100,7 @@ class Filesystem {
     *
     * @access public
     * @param string $file   File to read
+    * @throws CoreException
     * @return mixed contents of file on success, otherwise false
     */
     public static function readFile($file) {
@@ -146,6 +147,7 @@ class Filesystem {
     * @access public
     * @param string $file   File to write to
     * @param string $data   Data to write to file
+    * @throws CoreException
     * @return bool true on success, otherwise false
     */
     public static function writeFile($file, $data) {
@@ -182,6 +184,7 @@ class Filesystem {
     * @access public
     * @param string $file   File to append to
     * @param string $data   Data to append
+    * @throws CoreException
     * @return bool true on success, otherwise false
     */
     public static function appendFile($file, $data) {
@@ -222,6 +225,7 @@ class Filesystem {
     * @access public
     * @param string $dir        Directory to list all the things in
     * @param bool   $recursive  Recursivly scan. (optional default is false)
+    * @throws CoreException
     * @return array containing the files and directories found
     */
     public static function listAll($dir, $recursive=false) {
@@ -294,6 +298,7 @@ class Filesystem {
     * @param string $dir        Path to new dir
     * @param int    $chmod      Mode/chmod permissions for new file. (optional default is 0755)
     * @param bool   $recursive  MAke directories recursivly
+    * @throws CoreException
     * @return bool true on sucess, otherwise false
     */
     public static function mkdir($dir, $chmod=0755, $recursive=false) {

@@ -60,7 +60,7 @@ class Recaptcha {
         $conf = config('plugins');
 
         if (!isset($conf->recaptcha)) {
-            throw new Powerstack\Core\Exception("Please configure the recaptcha plugin in config.yml");
+            throw new PluginException("Please configure the recaptcha plugin in config.yml");
         }
 
         $this->conf = $conf->recaptcha;

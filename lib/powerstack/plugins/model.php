@@ -56,15 +56,15 @@ class Model {
         $conf = registry('config');
 
         if (!isset($conf->settings->modelsdir)) {
-            throw new Powerstack\Core\Exception("No models directory in config.yml");
+            throw new PluginException("No models directory in config.yml");
         }
 
         if (!isset($conf->plugins->database)) {
-            throw new Powerstack\Core\Exception("The model plugin depends on the database plugin");
+            throw new PluginException("The model plugin depends on the database plugin");
         }
 
         if (empty($this->query)) {
-            throw new Powerstack\Core\Exception("No query is defined for model");
+            throw new PluginException("No query is defined for model");
         }
 
         $this->db = new Powerstack\Plugins\Database();

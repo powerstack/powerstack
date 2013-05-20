@@ -55,7 +55,7 @@ class TemplateFactory {
             if (class_exists($class)) {
                 $this->template = new $class();
             } else {
-                throw new Exception("Could not find template engine: " . $engine . ", no " . $class . " class was found");
+                throw new CoreException("Could not find template engine: " . $engine . ", no " . $class . " class was found");
             }
         } else {
             $this->template = new TemplateSimple();

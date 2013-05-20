@@ -52,7 +52,7 @@ class Piwik {
         $this->conf = $conf->piwik;
 
         if (!isset($this->conf)) {
-            throw new Powerstack\Core\Exception("Please configure Piwik in config.yml");
+            throw new PluginException("Please configure Piwik in config.yml");
         }
     }
 

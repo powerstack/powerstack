@@ -80,7 +80,7 @@ class Authentication {
         $conf = config('plugins');
 
         if (!isset($conf->authenication)) {
-            throw new Powerstack\Core\Exception("Please configure authenication plugin in config.yml");
+            throw new PluginException("Please configure authenication plugin in config.yml");
         }
 
         $this->conf = $conf->authenication;
@@ -104,7 +104,7 @@ class Authentication {
         $result = $this->db->select('users', array('username' => $username, 'password' => $hash));
 
         if (!$result) {
-            throw new \Exception("Unable to query database.");
+            throw new PluginException("Unable to query database.");
         }
 
         $user = $this->db->fetch();
