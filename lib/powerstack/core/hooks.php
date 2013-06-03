@@ -84,5 +84,45 @@ class Hooks {
 
         return array();
     }
+
+    /**
+    * Run
+    * Run a hook
+    *
+    * @access public
+    * @param string $name   Name of hook to run
+    * @return bool false if any errors
+    */
+    function run($name) {
+        if (func_num_args() > 1) {
+            $args = array_shift(func_get_args());
+        }
+
+        if (!$this->exists($name)) {
+            return false;
+        }
+
+        $hooks = $this->get($name);
+
+        if (!empty($hooks)) {
+            foreach ($hooks as $hook) {
+                if (is_array($hook)) {
+                    if (empty($args)) {
+                        call_user_func_array($hook);
+                    } else {
+                        call_user_func_array($hook, $args);
+                    }
+                } else {
+                    if (empty($args)) {
+                        $hook();
+                    } else {
+                        $hook($args);
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
 }
 ?>
